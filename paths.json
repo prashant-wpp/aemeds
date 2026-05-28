@@ -1,0 +1,10 @@
+{
+  "mappings": [
+    "/content/aemeds/:/",
+    "/content/aemeds/configuration:/.helix/config.json"
+  ],
+  "includes": [
+    "/content/aemeds/",
+    "/content/dam/aemeds/"
+  ]
+}
