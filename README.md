@@ -15,7 +15,7 @@ Before using the aem-boilerplate, we recommend you to go through the documentati
 
 ## Prerequisites
 
-- nodejs 20 or newer
+- nodejs 22 or newer
 - AEM Cloud Service release 2026.4 or newer
 
 ## Installation
