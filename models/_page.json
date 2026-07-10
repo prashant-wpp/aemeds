@@ -23,22 +23,24 @@
           "label": "Keywords"
         },
         {
-          "component": "aem-content",
+          "component": "select",
           "name": "nav",
-          "label": "Header Fragment",
+          "label": "Header",
           "valueType": "string",
-          "validation": {
-            "rootPath": "/content/aemeds"
-          }
+          "options": [
+            { "name": "Main", "value": "/nav" },
+            { "name": "Minimal", "value": "/fragments/nav" }
+          ]
         },
         {
-          "component": "aem-content",
+          "component": "select",
           "name": "footer",
-          "label": "Footer Fragment",
+          "label": "Footer",
           "valueType": "string",
-          "validation": {
-            "rootPath": "/content/aemeds"
-          }
+          "options": [
+            { "name": "Main", "value": "/footer" },
+            { "name": "Minimal", "value": "/fragments/footer" }
+          ]
         }
       ]
     }
