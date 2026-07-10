@@ -20,6 +20,27 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "select",
+        "name": "nav",
+        "label": "Header",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Main",
+            "value": "/nav"
+          },
+          {
+            "name": "Minimal",
+            "value": "/fragments/nav"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "name": "footer",
+        "label": "Footer"
       }
     ]
   },
