@@ -21,6 +21,24 @@
           "name": "keywords",
           "multi": true,
           "label": "Keywords"
+        },
+        {
+          "component": "aem-content",
+          "name": "nav",
+          "label": "Header Fragment",
+          "valueType": "string",
+          "validation": {
+            "rootPath": "/content/aemeds"
+          }
+        },
+        {
+          "component": "aem-content",
+          "name": "footer",
+          "label": "Footer Fragment",
+          "valueType": "string",
+          "validation": {
+            "rootPath": "/content/aemeds"
+          }
         }
       ]
     }
