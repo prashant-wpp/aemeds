@@ -38,9 +38,20 @@
         ]
       },
       {
-        "component": "reference",
+        "component": "select",
         "name": "footer",
-        "label": "Footer"
+        "label": "Footer",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Main",
+            "value": "/footer"
+          },
+          {
+            "name": "Minimal",
+            "value": "/fragments/footer"
+          }
+        ]
       }
     ]
   },
