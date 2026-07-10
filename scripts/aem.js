@@ -370,19 +370,6 @@ function createOptimizedPicture(
 }
 
 /**
- * Detects if the current URL path is a product page
- */
-function getTemplate() {
-  const path = window.location.pathname;
-  
-  // If URL starts with /products/ but is not the main catalog page
-  if (path.startsWith('/products/') && path !== '/products/') {
-    return 'product'; // This maps to /templates/product/product.js
-  }
-  return null;
-}
-
-/**
  * Set template (page structure) and theme (page styles).
  */
 function decorateTemplateAndTheme() {
@@ -391,8 +378,6 @@ function decorateTemplateAndTheme() {
       element.classList.add(toClassName(c.trim()));
     });
   };
-  const pageTemplate = getTemplate();
-  if (pageTemplate) document.body.classList.add(`${pageTemplate}-template`);
   const template = getMetadata('template');
   if (template) addClasses(document.body, template);
   const theme = getMetadata('theme');
