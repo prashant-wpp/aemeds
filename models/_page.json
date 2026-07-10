@@ -33,14 +33,9 @@
           ]
         },
         {
-          "component": "select",
-          "name": "footer",
-          "label": "Footer",
-          "valueType": "string",
-          "options": [
-            { "name": "Main", "value": "/footer" },
-            { "name": "Minimal", "value": "/fragments/footer" }
-          ]
+          "component": "aem-content",
+          "name": "reference",
+          "label": "Footer"
         }
       ]
     }
