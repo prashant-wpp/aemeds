@@ -1,0 +1,22 @@
+{
+    "fields": [
+        {
+            "component": "aem-content",
+            "name": "nav",
+            "label": "Header",
+            "valueType": "string",
+            "validation": {
+              "rootPath": "/content/aemeds"
+            }
+        },
+        {
+            "component": "aem-content",
+            "name": "footer",
+            "label": "Footer",
+            "valueType": "string",
+            "validation": {
+              "rootPath": "/content/aemeds"
+            }
+        }
+    ]
+}

@@ -22,6 +22,18 @@
         "label": "Keywords"
       },
       {
+        "component": "text",
+        "name": "og:title",
+        "label": "OG Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "og:description",
+        "label": "OG Description",
+        "valueType": "string"
+      },
+      {
         "component": "aem-content",
         "name": "nav",
         "label": "Header",
