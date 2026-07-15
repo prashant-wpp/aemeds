@@ -1,0 +1,41 @@
+.product-hero {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+}
+
+.product-hero-media picture,
+.product-hero-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.product-hero-content {
+  display: grid;
+  gap: 12px;
+}
+
+.product-hero-content h1,
+.product-hero-content h2 {
+  margin: 0;
+}
+
+.product-hero-sku {
+  margin: 0;
+  font-size: var(--body-font-size-s, 14px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.product-hero-content p {
+  margin: 0;
+}
+
+@media (width >= 900px) {
+  .product-hero {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
