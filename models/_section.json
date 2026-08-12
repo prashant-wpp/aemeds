@@ -52,7 +52,11 @@
         "cards",
         "explore-panels",
         "columns",
-        "fragment"
+        "fragment",
+        "content-block",
+        "dealer-locator",
+        "zoom-panel",
+        "hero-immersive"
       ]
     }
   ]

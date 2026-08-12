@@ -21,25 +21,32 @@
       "id": "dealer-locator",
       "fields": [
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "backgroundImage",
+          "label": "Background Image",
+          "multi": false
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "title",
           "label": "Title",
-          "value": "Find a Dealer"
+          "value": "Find a Michelin Dealer"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "description",
           "label": "Description",
-          "value": ""
+          "value": "Search among our dealers to find where your tyre is available"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "placeholder",
           "label": "Search Placeholder",
-          "value": "Enter city or pincode"
+          "value": "City, suburb, town or zip"
         }
       ]
     }
