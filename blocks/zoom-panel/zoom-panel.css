@@ -1,0 +1,63 @@
+.zoom-panel-container .zoom-panel-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.zoom-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: 48px 24px;
+  overflow: hidden;
+}
+
+.zoom-panel .zp-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+.zoom-panel .zp-bg picture {
+  display: block;
+  height: 100%;
+}
+
+.zoom-panel .zp-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.zoom-panel .zp-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  text-align: center;
+  color: #fff;
+}
+
+.zoom-panel .zp-content h2 {
+  margin: 0 0 16px;
+  font-size: var(--heading-font-size-l, 2rem);
+  line-height: 1.2;
+}
+
+.zoom-panel .zp-content p {
+  margin: 0;
+  font-size: var(--body-font-size-m, 1.125rem);
+}
+
+@media (width >= 900px) {
+  .zoom-panel {
+    min-height: 70vh;
+    padding: 64px 32px;
+  }
+
+  .zoom-panel .zp-content h2 {
+    font-size: var(--heading-font-size-xl, 2.5rem);
+  }
+}

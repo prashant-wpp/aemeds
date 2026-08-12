@@ -1,0 +1,77 @@
+.hero-immersive-container .hero-immersive-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-immersive {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 48px 24px;
+  overflow: hidden;
+}
+
+.hero-immersive .hi-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-immersive .hi-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 45%), rgb(0 0 0 / 60%));
+}
+
+.hero-immersive .hi-bg picture {
+  display: block;
+  height: 100%;
+}
+
+.hero-immersive .hi-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-immersive .hi-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-immersive .hi-content h1 {
+  margin: 0 0 16px;
+  font-size: var(--heading-font-size-xl, 2.5rem);
+  line-height: 1.15;
+}
+
+.hero-immersive .hi-content p {
+  margin: 0 0 16px;
+  font-size: var(--body-font-size-m, 1.125rem);
+}
+
+.hero-immersive .hi-content .button-wrapper {
+  margin-top: 24px;
+}
+
+.hero-immersive .hi-content .button {
+  color: #fff;
+  border-color: #fff;
+}
+
+@media (width >= 900px) {
+  .hero-immersive {
+    min-height: 80vh;
+    padding: 64px 32px;
+  }
+
+  .hero-immersive .hi-content h1 {
+    font-size: var(--heading-font-size-xxl, 3.5rem);
+  }
+}

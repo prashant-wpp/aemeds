@@ -210,6 +210,82 @@
     ]
   },
   {
+    "id": "content-block",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "media",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "mediaAlt",
+        "label": "Image Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "video",
+        "label": "Video URL (YouTube/Vimeo)",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Layout",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default (media left)",
+            "value": ""
+          },
+          {
+            "name": "Reversed (media right)",
+            "value": "reversed"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dealer-locator",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": "Find a Dealer"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "placeholder",
+        "label": "Search Placeholder",
+        "value": "Enter city or pincode"
+      }
+    ]
+  },
+  {
     "id": "explore-panel",
     "fields": [
       {
@@ -300,6 +376,32 @@
     ]
   },
   {
+    "id": "hero-immersive",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "hero",
     "fields": [
       {
@@ -361,6 +463,32 @@
         "name": "description",
         "value": "",
         "label": "Short Description",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "zoom-panel",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Content",
         "valueType": "string"
       }
     ]
