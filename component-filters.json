@@ -17,7 +17,11 @@
       "cards",
       "explore-panels",
       "columns",
-      "fragment"
+      "fragment",
+      "dealer-locator",
+      "zoom-panel",
+      "content-block",
+      "hero-immersive"
     ]
   },
   {
