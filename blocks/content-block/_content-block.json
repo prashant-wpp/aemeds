@@ -9,7 +9,23 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Content Block",
-              "model": "content-block"
+              "model": "content-block",
+              "filter": "content-block"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Content Block Item",
+      "id": "content-block-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Content Block Item",
+              "model": "content-block-item"
             }
           }
         }
@@ -19,6 +35,25 @@
   "models": [
     {
       "id": "content-block",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Section Title",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "name": "description",
+          "label": "Section Description",
+          "valueType": "string",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "content-block-item",
       "fields": [
         {
           "component": "reference",
@@ -37,30 +72,46 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "video",
+          "name": "media_video",
           "label": "Video URL (YouTube/Vimeo)",
           "value": ""
         },
         {
+          "component": "text",
+          "name": "title",
+          "label": "Card Title",
+          "valueType": "string",
+          "value": ""
+        },
+        {
           "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Content",
+          "name": "description",
+          "label": "Card Description",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "cta",
+          "label": "CTA Link",
           "valueType": "string"
         },
         {
-          "component": "select",
-          "name": "classes",
-          "value": "",
-          "label": "Layout",
+          "component": "text",
+          "name": "ctaText",
+          "label": "CTA Label",
           "valueType": "string",
-          "options": [
-            { "name": "Default (media left)", "value": "" },
-            { "name": "Reversed (media right)", "value": "reversed" }
-          ]
+          "value": "Learn more"
         }
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "content-block",
+      "components": [
+        "content-block-item"
+      ]
+    }
+  ]
 }
