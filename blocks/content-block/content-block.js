@@ -55,10 +55,9 @@ export default function decorate(block) {
   const header = document.createElement('div');
   header.className = 'cb-header';
   moveInstrumentation(headerRow, header);
-  const headerCell = headerRow.children[0];
-  if (headerCell) {
+  [...headerRow.children].forEach((headerCell) => {
     while (headerCell.firstElementChild) header.append(headerCell.firstElementChild);
-  }
+  });
 
   const slider = document.createElement('div');
   slider.className = 'cb-slider';
