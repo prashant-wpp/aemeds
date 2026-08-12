@@ -1,23 +1,39 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-function getVideoId(url) {
-  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]+)/);
-  if (ytMatch) return { platform: 'youtube', id: ytMatch[1] };
+const DAM_VIDEO_PATTERN = /\.(mp4|webm|mov|m4v|ogv)(\?|$)/i;
 
-  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
-  if (vimeoMatch) return { platform: 'vimeo', id: vimeoMatch[1] };
+function isDamVideoUrl(url) {
+  if (!url) return false;
+  try {
+    const { pathname } = new URL(url, window.location.href);
+    return DAM_VIDEO_PATTERN.test(pathname) || /\/media_[^/]+$/i.test(pathname);
+  } catch {
+    return DAM_VIDEO_PATTERN.test(url);
+  }
+}
+
+function getVideoUrl(cell) {
+  const link = cell?.querySelector?.('a[href]');
+  if (link && isDamVideoUrl(link.href)) return link.href;
+
+  const text = cell?.textContent?.trim();
+  if (!cell?.querySelector?.('picture, img, a[href]') && text && isDamVideoUrl(text)) {
+    try {
+      return new URL(text, window.location.href).href;
+    } catch {
+      return text;
+    }
+  }
 
   return null;
 }
 
-function getEmbedUrl(video) {
-  if (video.platform === 'youtube') return `https://www.youtube-nocookie.com/embed/${video.id}?rel=0&autoplay=1`;
-  if (video.platform === 'vimeo') return `https://player.vimeo.com/video/${video.id}?autoplay=1`;
-  return null;
+function isVideoCell(cell) {
+  return !!getVideoUrl(cell);
 }
 
-function buildPlayButton(thumbnail, videoUrl) {
+function buildPlayButton(thumbnail, videoSrc) {
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.setAttribute('aria-label', 'Play video');
@@ -26,13 +42,15 @@ function buildPlayButton(thumbnail, videoUrl) {
 
   btn.addEventListener('click', () => {
     const wrapper = btn.closest('.cb-media');
-    const iframe = document.createElement('iframe');
-    iframe.src = getEmbedUrl(videoUrl);
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.setAttribute('allow', 'autoplay; encrypted-media');
-    iframe.title = 'Video';
-    wrapper.replaceChildren(iframe);
+    const video = document.createElement('video');
+    video.src = videoSrc;
+    video.controls = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('autoplay', '');
+    video.title = 'Video';
+    wrapper.replaceChildren(video);
     wrapper.classList.add('cb-playing');
+    video.play();
   });
 
   return btn;
@@ -59,7 +77,7 @@ function isCtaCell(cell) {
   const link = getAuthoredLink(cell);
   return !!link
     && !cell.querySelector('picture, img')
-    && !getVideoId(link.href);
+    && !isDamVideoUrl(link.href);
 }
 
 const CTA_TYPES = new Set(['primary', 'secondary']);
@@ -106,7 +124,7 @@ function buildCtaWrapper(link, ctaType) {
 
 function isButtonElement(el) {
   const link = getAuthoredLink(el);
-  if (!link || getVideoId(link.href)) return false;
+  if (!link || isDamVideoUrl(link.href)) return false;
   return el.querySelector('a strong, strong a, a em, em a')
     || (el.tagName === 'P' && el.querySelector('a') && el.children.length === 1
       && link.textContent === el.textContent.trim());
@@ -197,6 +215,30 @@ function appendFooterCta(footerDiv, el, contentCells, skippedCells) {
   footerDiv.append(buildCtaWrapper(link, ctaType));
 }
 
+function appendMediaContent(mediaDiv, mediaCell, videoSrc) {
+  if (videoSrc) {
+    mediaDiv.classList.add('cb-video');
+    const pic = mediaCell?.querySelector('picture') || mediaCell?.querySelector('img');
+    if (pic) {
+      mediaDiv.append(buildPlayButton(pic, videoSrc));
+      return;
+    }
+
+    const placeholder = document.createElement('div');
+    placeholder.className = 'cb-video-placeholder';
+    mediaDiv.append(buildPlayButton(placeholder, videoSrc));
+    return;
+  }
+
+  if (!mediaCell) return;
+
+  [...mediaCell.children].forEach((child) => {
+    const link = child.querySelector?.('a[href]') || (child.matches?.('a[href]') ? child : null);
+    if (link && isDamVideoUrl(link.href)) return;
+    mediaDiv.append(child);
+  });
+}
+
 function appendPlainTextCell(cell, bodyDiv, titleAdded) {
   const text = cell.textContent.trim();
   if (!text) return titleAdded;
@@ -263,35 +305,19 @@ export default function decorate(block) {
     moveInstrumentation(row, card);
 
     const cells = [...row.children];
-    const mediaCell = cells.find((cell) => cell.querySelector('picture, img')) || cells[0];
-    const contentCells = cells.filter((cell) => cell !== mediaCell && !isEmptyCell(cell));
+    const imageCell = cells.find((cell) => cell.querySelector('picture, img'));
+    const videoCell = cells.find((cell) => cell !== imageCell && isVideoCell(cell));
+    const videoSrc = getVideoUrl(videoCell) || getVideoUrl(imageCell);
+    const mediaCell = imageCell || videoCell || cells[0];
+    const contentCells = cells.filter((cell) => {
+      if (cell === mediaCell || cell === videoCell) return false;
+      return !isEmptyCell(cell);
+    });
 
     const mediaDiv = document.createElement('div');
     mediaDiv.className = 'cb-media';
 
-    if (mediaCell) {
-      const videoCell = contentCells.find((cell) => {
-        const videoLink = cell.querySelector('a[href]');
-        return videoLink && getVideoId(videoLink.href);
-      });
-      const link = mediaCell.querySelector('a[href]') || videoCell?.querySelector('a[href]');
-      const videoInfo = link ? getVideoId(link.href) : null;
-
-      if (videoInfo && mediaCell.querySelector('picture, img')) {
-        mediaDiv.classList.add('cb-video');
-        const pic = mediaCell.querySelector('picture') || mediaCell.querySelector('img');
-        const playBtn = buildPlayButton(pic, videoInfo);
-        mediaDiv.append(playBtn);
-      } else if (videoInfo) {
-        mediaDiv.classList.add('cb-video');
-        const placeholder = document.createElement('div');
-        placeholder.className = 'cb-video-placeholder';
-        const playBtn = buildPlayButton(placeholder, videoInfo);
-        mediaDiv.append(playBtn);
-      } else {
-        while (mediaCell.firstElementChild) mediaDiv.append(mediaCell.firstElementChild);
-      }
-    }
+    appendMediaContent(mediaDiv, mediaCell, videoSrc);
 
     const bodyDiv = document.createElement('div');
     bodyDiv.className = 'cb-body';
@@ -316,7 +342,7 @@ export default function decorate(block) {
         if (skippedCells.has(cell) || isCtaTypeCell(cell)) return;
 
         const videoLink = cell.querySelector('a[href]');
-        if (videoLink && getVideoId(videoLink.href) && !cell.querySelector('picture, img')) return;
+        if (videoLink && isDamVideoUrl(videoLink.href) && !cell.querySelector('picture, img')) return;
 
         if (isCtaCell(cell)) {
           appendAuthoredCta(footerDiv, cell, contentCells, skippedCells);

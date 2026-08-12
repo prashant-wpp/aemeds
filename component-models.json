@@ -246,11 +246,11 @@
         "value": ""
       },
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "media_video",
-        "label": "Video URL (YouTube/Vimeo)",
-        "value": ""
+        "label": "Video",
+        "multi": false
       },
       {
         "component": "text",
