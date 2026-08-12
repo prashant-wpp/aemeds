@@ -51,13 +51,17 @@ export default function decorate(block) {
   const rows = [...block.children];
   if (!rows.length) return;
 
-  const headerRow = rows.shift();
   const header = document.createElement('div');
   header.className = 'cb-header';
-  moveInstrumentation(headerRow, header);
-  [...headerRow.children].forEach((headerCell) => {
-    while (headerCell.firstElementChild) header.append(headerCell.firstElementChild);
-  });
+
+  while (rows.length && rows[0].children.length === 1) {
+    const headerRow = rows.shift();
+    moveInstrumentation(headerRow, header);
+    const headerCell = headerRow.children[0];
+    while (headerCell?.firstElementChild) {
+      header.append(headerCell.firstElementChild);
+    }
+  }
 
   const slider = document.createElement('div');
   slider.className = 'cb-slider';
