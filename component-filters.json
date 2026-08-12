@@ -17,11 +17,7 @@
       "cards",
       "explore-panels",
       "columns",
-      "fragment",
-      "dealer-locator",
-      "zoom-panel",
-      "content-block",
-      "hero-immersive"
+      "fragment"
     ]
   },
   {
@@ -43,6 +39,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "content-block",
+    "components": [
+      "content-block-item"
     ]
   },
   {

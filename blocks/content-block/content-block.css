@@ -65,6 +65,7 @@
   min-width: calc(100% - 40px);
   scroll-snap-align: start;
   flex: 0 0 auto;
+  max-width: 100%;
 }
 
 .content-block .cb-media {
@@ -136,15 +137,16 @@
 
 .content-block .cb-footer {
   margin-top: auto;
+  padding-top: 8px;
 }
 
-.content-block .cb-footer a {
-  font-weight: 600;
+.content-block .cb-footer .button-wrapper {
+  margin: 0;
 }
 
 @media (width >= 900px) {
   .content-block {
-    gap: 48px;
+    gap: 16px;
     padding: 64px 0;
     align-items: center;
   }

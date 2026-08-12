@@ -278,6 +278,25 @@
         "label": "CTA Label",
         "valueType": "string",
         "value": "Learn more"
+      },
+      {
+        "component": "select",
+        "name": "ctaType",
+        "label": "CTA Type",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "primary",
+            "value": "primary"
+          },
+          {
+            "name": "secondary",
+            "value": "secondary"
+          }
+        ]
       }
     ]
   },
