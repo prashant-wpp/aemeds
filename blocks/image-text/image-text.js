@@ -10,12 +10,12 @@ function isEmptyCell(cell) {
 
 function isHeadingTypeCell(cell) {
   const text = cell.textContent.trim().toLowerCase();
-  return HEADING_TAGS.has(text) && !cell.querySelector('picture, img, a, p, ul, ol');
+  return HEADING_TAGS.has(text) && !isImageCell(cell);
 }
 
 function isImagePositionCell(cell) {
   const text = cell.textContent.trim().toLowerCase();
-  return IMAGE_POSITIONS.has(text) && !cell.querySelector('picture, img, a, p, ul, ol, h1, h2, h3, h4, h5, h6');
+  return IMAGE_POSITIONS.has(text) && !isImageCell(cell);
 }
 
 function isImageCell(cell) {
@@ -23,13 +23,15 @@ function isImageCell(cell) {
 }
 
 function isDescriptionCell(cell) {
-  return !!cell.querySelector('p, ul, ol, blockquote') || cell.querySelectorAll('div').length > 1;
+  if (cell.querySelector('p, ul, ol, blockquote')) return true;
+  if (cell.querySelector('br')) return true;
+  return cell.textContent.trim().length > 120;
 }
 
 function isTitleCell(cell) {
   if (isImageCell(cell) || isHeadingTypeCell(cell) || isImagePositionCell(cell)) return false;
-  if (cell.querySelector('h1, h2, h3, h4, h5, h6')) return true;
   if (isDescriptionCell(cell)) return false;
+  if (cell.querySelector('h1, h2, h3, h4, h5, h6')) return true;
   return !!cell.textContent.trim();
 }
 
@@ -41,7 +43,18 @@ function normalizeTitle(cell, titleType) {
 
   const heading = document.createElement(tag);
   heading.textContent = text;
+  if (existingHeading?.id) heading.id = existingHeading.id;
   return heading;
+}
+
+function getAuthoredCells(block) {
+  const cells = [];
+  [...block.children].forEach((row) => {
+    [...row.children].forEach((cell) => {
+      if (!isEmptyCell(cell)) cells.push(cell);
+    });
+  });
+  return cells;
 }
 
 /**
@@ -49,12 +62,14 @@ function normalizeTitle(cell, titleType) {
  * @param {Element} block The block element
  */
 export default function decorate(block) {
-  const row = block.children[0];
-  if (!row) return;
+  const cells = getAuthoredCells(block);
+  if (!cells.length) return;
 
-  const cells = [...row.children].filter((cell) => !isEmptyCell(cell));
   let titleType = 'h2';
   let imagePosition = 'left';
+
+  const header = document.createElement('div');
+  header.className = 'it-header';
 
   const body = document.createElement('div');
   body.className = 'it-body';
@@ -86,7 +101,7 @@ export default function decorate(block) {
       const heading = normalizeTitle(cell, titleType);
       if (heading) {
         moveInstrumentation(cell, heading);
-        content.prepend(heading);
+        header.append(heading);
       }
       return;
     }
@@ -100,7 +115,11 @@ export default function decorate(block) {
   }
 
   body.append(media, content);
-  block.replaceChildren(body);
+
+  const children = [];
+  if (header.childElementCount) children.push(header);
+  children.push(body);
+  block.replaceChildren(...children);
 
   block.querySelectorAll('picture > img').forEach((img) => {
     const optimized = createOptimizedPicture(img.src, img.alt, false, [{ width: '900' }, { width: '600' }]);

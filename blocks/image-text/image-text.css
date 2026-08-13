@@ -1,5 +1,13 @@
 .image-text {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.image-text .it-header :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  line-height: 1.2;
 }
 
 .image-text .it-body {
@@ -26,12 +34,6 @@
   gap: 12px;
 }
 
-.image-text .it-content :is(h1, h2, h3, h4, h5, h6) {
-  margin: 0;
-  font-family: var(--heading-font-family);
-  line-height: 1.2;
-}
-
 .image-text .it-content p {
   margin: 0;
 }
@@ -43,8 +45,12 @@
 }
 
 @media (width >= 900px) {
+  .image-text {
+    gap: 32px;
+  }
+
   .image-text .it-body {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.75fr 1.25fr;
     gap: 40px;
   }
 }
@@ -54,5 +60,6 @@
 }
 
 .image-text .it-body.image-text-reverse .it-content {
+  grid-template-columns: 1.25fr 0.75fr;
   order: 1;
 }
