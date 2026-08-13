@@ -56,7 +56,8 @@
         "content-block",
         "dealer-locator",
         "zoom-panel",
-        "hero-immersive"
+        "hero-immersive",
+        "image-text"
       ]
     }
   ]
