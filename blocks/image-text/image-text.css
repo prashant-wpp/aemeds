@@ -53,6 +53,10 @@
     grid-template-columns: 0.75fr 1.25fr;
     gap: 40px;
   }
+
+  .image-text .it-body.image-text-reverse {
+    grid-template-columns: 1.25fr 0.75fr;
+  }
 }
 
 .image-text .it-body.image-text-reverse .it-media {
@@ -60,6 +64,5 @@
 }
 
 .image-text .it-body.image-text-reverse .it-content {
-  grid-template-columns: 1.25fr 0.75fr;
   order: 1;
 }
