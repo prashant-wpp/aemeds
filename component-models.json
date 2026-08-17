@@ -622,6 +622,29 @@
     ]
   },
   {
+    "id": "tyre-detail",
+    "fields": [
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "source",
+        "label": "Tyre Content Fragment",
+        "description": "Pick the Tyre Content Fragment (e.g. /content/dam/aemeds/apterra-ht). A full JSON URL is also supported."
+      },
+      {
+        "component": "select",
+        "name": "sourceVariation",
+        "label": "Fragment Variation",
+        "options": [
+          {
+            "name": "Master",
+            "value": "master"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "tyre-sizes",
     "fields": [
       {

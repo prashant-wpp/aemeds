@@ -1,0 +1,58 @@
+{
+  "jcr:primaryType": "dam:Asset",
+  "jcr:content": {
+    "jcr:primaryType": "dam:AssetContent",
+    "contentFragment": true,
+    "data": {
+      "cq:model": "/conf/aemeds/settings/dam/cfm/models/tyre",
+      "master": {
+        "productId": "915",
+        "tyreName": "APTERRA HT",
+        "slug": "915-apterra-ht",
+        "vehicleType": "SUV",
+        "tagline": "Superior all round performance for SUV",
+        "shortDescription": "Long lasting SUV tyre for maximum durability and enhanced steering",
+        "heroImage": "https://www.apollotyres.com/content/dam/orbit/syncforce/products/915/T0013240.png",
+        "imageAlt": "APTERRA HT SUV tyre",
+        "sizeVariants": [
+          {
+            "widthMm": "235",
+            "aspectRatio": "75",
+            "rimDiameter": "15",
+            "loadIndex": "105",
+            "speedRating": "S",
+            "displaySize": "235/75 R15",
+            "isMostUsed": "true"
+          },
+          {
+            "widthMm": "215",
+            "aspectRatio": "75",
+            "rimDiameter": "15",
+            "loadIndex": "100",
+            "speedRating": "S",
+            "displaySize": "215/75 R15",
+            "isMostUsed": "true"
+          },
+          {
+            "widthMm": "255",
+            "aspectRatio": "70",
+            "rimDiameter": "15",
+            "loadIndex": "108",
+            "speedRating": "S",
+            "displaySize": "255/70 R15",
+            "isMostUsed": ""
+          },
+          {
+            "widthMm": "235",
+            "aspectRatio": "70",
+            "rimDiameter": "16",
+            "loadIndex": "105",
+            "speedRating": "S",
+            "displaySize": "235/70 R16",
+            "isMostUsed": "true"
+          }
+        ]
+      }
+    }
+  }
+}
