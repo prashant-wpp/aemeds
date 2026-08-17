@@ -16,9 +16,38 @@
   gap: 12px;
 }
 
+.product-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.product-hero-vehicle,
+.product-hero-size-count {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: var(--body-font-size-s, 14px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgb(0 0 0 / 6%);
+}
+
+.product-hero-size-count:empty {
+  display: none;
+}
+
 .product-hero-content h1,
 .product-hero-content h2 {
   margin: 0;
+}
+
+.product-hero-tagline {
+  margin: 0;
+  font-size: var(--body-font-size-m, 1.125rem);
+  font-weight: 600;
 }
 
 .product-hero-sku {
@@ -31,6 +60,13 @@
 
 .product-hero-content p {
   margin: 0;
+}
+
+.product-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
 }
 
 @media (width >= 900px) {

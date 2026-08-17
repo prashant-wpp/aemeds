@@ -8,6 +8,10 @@ function isEmptyCell(cell) {
   return !cell?.textContent?.trim() && !cell?.querySelector('picture, img');
 }
 
+function isImageCell(cell) {
+  return !!cell.querySelector('picture, img');
+}
+
 function isHeadingTypeCell(cell) {
   const text = cell.textContent.trim().toLowerCase();
   return HEADING_TAGS.has(text) && !isImageCell(cell);
@@ -16,10 +20,6 @@ function isHeadingTypeCell(cell) {
 function isImagePositionCell(cell) {
   const text = cell.textContent.trim().toLowerCase();
   return IMAGE_POSITIONS.has(text) && !isImageCell(cell);
-}
-
-function isImageCell(cell) {
-  return !!cell.querySelector('picture, img');
 }
 
 function isDescriptionCell(cell) {

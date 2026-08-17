@@ -4,6 +4,10 @@
   gap: 24px;
 }
 
+.image-text-wrapper {
+  padding: 24px !important;
+}
+
 .image-text .it-header :is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
   font-family: var(--heading-font-family);
@@ -47,6 +51,10 @@
 @media (width >= 900px) {
   .image-text {
     gap: 32px;
+  }
+
+  .image-text-wrapper {
+    padding: 32px !important;
   }
 
   .image-text .it-body {

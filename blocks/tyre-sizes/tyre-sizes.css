@@ -1,0 +1,113 @@
+.tyre-sizes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tyre-sizes .ts-header h2 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  line-height: 1.2;
+}
+
+.tyre-sizes .ts-intro p {
+  margin: 8px 0 0;
+}
+
+.tyre-sizes .ts-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tyre-sizes .ts-filter-btn {
+  padding: 8px 16px;
+  border: 1px solid currentcolor;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.tyre-sizes .ts-filter-btn.active {
+  background: var(--link-color, #000);
+  color: var(--background-color, #fff);
+  border-color: var(--link-color, #000);
+}
+
+.tyre-sizes .ts-table {
+  width: 100%;
+  border-collapse: collapse;
+  display: none;
+}
+
+.tyre-sizes .ts-table th,
+.tyre-sizes .ts-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #dadada;
+}
+
+.tyre-sizes .ts-table th {
+  font-size: var(--body-font-size-s, 14px);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.tyre-sizes .ts-table tbody tr:hover {
+  background: rgb(0 0 0 / 4%);
+}
+
+.tyre-sizes .ts-cards {
+  display: grid;
+  gap: 16px;
+}
+
+.tyre-sizes .ts-card {
+  padding: 16px;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+}
+
+.tyre-sizes .ts-card-size {
+  margin: 0 0 12px;
+  font-size: var(--heading-font-size-s, 1.25rem);
+}
+
+.tyre-sizes .ts-card-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.tyre-sizes .ts-card-specs div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tyre-sizes .ts-card-specs dt {
+  font-size: var(--body-font-size-s, 14px);
+  opacity: 0.7;
+}
+
+.tyre-sizes .ts-card-specs dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.tyre-sizes [hidden] {
+  display: none !important;
+}
+
+@media (width >= 900px) {
+  .tyre-sizes .ts-table {
+    display: table;
+  }
+
+  .tyre-sizes .ts-cards {
+    display: none;
+  }
+}

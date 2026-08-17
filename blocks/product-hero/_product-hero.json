@@ -37,23 +37,50 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "title",
+          "name": "heroDetails_segment",
+          "label": "Vehicle Type",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heroDetails_title",
           "label": "Product Name",
           "value": ""
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "sku",
-          "label": "SKU",
+          "name": "heroDetails_sku",
+          "label": "Product ID / SKU",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heroDetails_tagline",
+          "label": "Tagline",
           "value": ""
         },
         {
           "component": "richtext",
-          "name": "description",
+          "name": "heroDetails_description",
           "value": "",
           "label": "Short Description",
           "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "brochure",
+          "label": "Brochure Link",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "brochureText",
+          "label": "Brochure Label",
+          "valueType": "string",
+          "value": "Download Brochure"
         }
       ]
     }

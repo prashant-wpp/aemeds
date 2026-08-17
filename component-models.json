@@ -574,23 +574,131 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "title",
+        "name": "heroDetails_segment",
+        "label": "Vehicle Type",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heroDetails_title",
         "label": "Product Name",
         "value": ""
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "sku",
-        "label": "SKU",
+        "name": "heroDetails_sku",
+        "label": "Product ID / SKU",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heroDetails_tagline",
+        "label": "Tagline",
         "value": ""
       },
       {
         "component": "richtext",
-        "name": "description",
+        "name": "heroDetails_description",
         "value": "",
         "label": "Short Description",
         "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "brochure",
+        "label": "Brochure Link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "brochureText",
+        "label": "Brochure Label",
+        "valueType": "string",
+        "value": "Download Brochure"
+      }
+    ]
+  },
+  {
+    "id": "tyre-sizes",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Section Title",
+        "value": "Find your right tyre size"
+      },
+      {
+        "component": "richtext",
+        "name": "intro",
+        "label": "Introduction",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "tyre-size-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "size_widthMm",
+        "label": "Width (mm)",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "size_aspectRatio",
+        "label": "Aspect Ratio",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "size_rimDiameter",
+        "label": "Rim Diameter",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "size_loadIndex",
+        "label": "Load Index",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "size_speedRating",
+        "label": "Speed Rating",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "size_displaySize",
+        "label": "Display Size",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "size_isMostUsed",
+        "label": "Most Used Size",
+        "options": [
+          {
+            "name": "No",
+            "value": ""
+          },
+          {
+            "name": "Yes",
+            "value": "true"
+          }
+        ]
       }
     ]
   },

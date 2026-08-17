@@ -22,7 +22,8 @@
       "dealer-locator",
       "zoom-panel",
       "hero-immersive",
-      "image-text"
+      "image-text",
+      "tyre-sizes"
     ]
   },
   {
@@ -56,6 +57,12 @@
     "id": "explore-panels",
     "components": [
       "explore-panel"
+    ]
+  },
+  {
+    "id": "tyre-sizes",
+    "components": [
+      "tyre-size-item"
     ]
   }
 ]
