@@ -32,7 +32,7 @@
           "valueType": "string",
           "name": "title",
           "label": "Title",
-          "value": "Find a Michelin Dealer"
+          "value": "Find a Apollo Tyres Dealer"
         },
         {
           "component": "text",
