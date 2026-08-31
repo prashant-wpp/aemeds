@@ -63,7 +63,8 @@
         "chapter",
         "command-bar",
         "geo-banner",
-        "intelligence-hub"
+        "intelligence-hub",
+        "vertical-slider"
       ]
     }
   ]

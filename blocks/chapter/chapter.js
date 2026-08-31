@@ -1,3 +1,6 @@
+import { extractNestedBlocks, loadNestedBlocks } from '../../scripts/nested-blocks.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 /**
  * @param {string} value
  * @returns {boolean}
@@ -13,12 +16,12 @@ function isVideoUrl(value) {
 }
 
 /**
- * @param {Element} block
+ * @param {Element[]} rows
  * @returns {Record<string, Element|undefined>}
  */
-function readKeyValueCells(block) {
+function readKeyValueCells(rows) {
   const cells = {};
-  [...block.children].forEach((row) => {
+  rows.forEach((row) => {
     const [keyCell, valueCell] = row.children;
     const key = keyCell?.textContent.trim();
     if (!key) return;
@@ -71,11 +74,34 @@ function resolveVideoFromCell(cell) {
 }
 
 /**
+ * @param {Element} block
+ */
+function scrollToNextView(block) {
+  const slider = block.closest('.vertical-slider');
+  if (slider) {
+    const slide = block.closest('.vertical-slider-slide');
+    slide?.nextElementSibling?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  const section = block.closest('.section');
+  section?.nextElementSibling?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/**
  * loads and decorates the chapter block
  * @param {Element} block The block element
  */
-export default function decorate(block) {
-  const cells = readKeyValueCells(block);
+export default async function decorate(block) {
+  const { nested, remaining } = extractNestedBlocks(block, [
+    'command-bar',
+    'geo-banner',
+    'cards',
+    'text',
+    'title',
+  ]);
+
+  const cells = readKeyValueCells(remaining);
 
   const backgroundPicture = cells.image?.querySelector('picture') || null;
   const thumbnailPicture = cells.thumbnail?.querySelector('picture') || null;
@@ -121,11 +147,7 @@ export default function decorate(block) {
     const label = document.createElement('span');
     label.textContent = scrollCueLabel;
     cue.append(label);
-    cue.addEventListener('click', () => {
-      const section = block.closest('.section');
-      const next = section?.nextElementSibling;
-      next?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    cue.addEventListener('click', () => scrollToNextView(block));
     content.append(cue);
   }
 
@@ -136,5 +158,16 @@ export default function decorate(block) {
     content.append(thumb);
   }
 
+  const children = document.createElement('div');
+  children.className = 'chapter-children';
+
+  nested.forEach(({ row, block: nestedBlock }) => {
+    moveInstrumentation(row, nestedBlock);
+    children.append(nestedBlock);
+  });
+
   block.replaceChildren(media, content);
+  if (nested.length) block.append(children);
+
+  await loadNestedBlocks(nested.map(({ block: nestedBlock }) => nestedBlock));
 }

@@ -85,10 +85,16 @@
   outline-offset: 2px;
 }
 
-/* Sit naturally inside a chapter section */
-.chapter-container .command-bar-wrapper {
+/* Sit naturally inside a chapter section or nested in chapter */
+.chapter-container .command-bar-wrapper,
+.chapter .chapter-children .command-bar-wrapper {
   margin-top: -4rem;
   margin-bottom: 2rem;
   position: relative;
   z-index: 2;
+}
+
+.chapter .chapter-children .command-bar-wrapper {
+  margin-top: 0;
+  margin-bottom: 0;
 }

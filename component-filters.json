@@ -28,13 +28,24 @@
       "chapter",
       "command-bar",
       "geo-banner",
-      "intelligence-hub"
+      "intelligence-hub",
+      "vertical-slider"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "chapter",
+    "components": [
+      "command-bar",
+      "geo-banner",
+      "cards",
+      "text",
+      "title"
     ]
   },
   {
@@ -74,6 +85,12 @@
     "id": "tyre-sizes",
     "components": [
       "tyre-size-item"
+    ]
+  },
+  {
+    "id": "vertical-slider",
+    "components": [
+      "chapter"
     ]
   }
 ]

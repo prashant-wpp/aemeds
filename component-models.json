@@ -1046,6 +1046,25 @@
     ]
   },
   {
+    "id": "vertical-slider",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "showNavigation",
+        "label": "Show Slide Navigation",
+        "valueType": "boolean",
+        "value": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "navigationLabel",
+        "label": "Navigation Aria Label",
+        "value": "Homepage chapters"
+      }
+    ]
+  },
+  {
     "id": "zoom-panel",
     "fields": [
       {

@@ -10,7 +10,8 @@
             "template": {
               "name": "Chapter",
               "model": "chapter",
-              "key-value": true
+              "key-value": true,
+              "filter": "chapter"
             }
           }
         }
@@ -94,5 +95,16 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "chapter",
+      "components": [
+        "command-bar",
+        "geo-banner",
+        "cards",
+        "text",
+        "title"
+      ]
+    }
+  ]
 }
