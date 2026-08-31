@@ -38,12 +38,5 @@
       ]
     }
   ],
-  "filters": [
-    {
-      "id": "vertical-slider",
-      "components": [
-        "chapter"
-      ]
-    }
-  ]
+  "filters": []
 }

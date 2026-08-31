@@ -41,11 +41,7 @@
   {
     "id": "chapter",
     "components": [
-      "command-bar",
-      "geo-banner",
-      "cards",
-      "text",
-      "title"
+      "command-bar"
     ]
   },
   {
@@ -85,12 +81,6 @@
     "id": "tyre-sizes",
     "components": [
       "tyre-size-item"
-    ]
-  },
-  {
-    "id": "vertical-slider",
-    "components": [
-      "chapter"
     ]
   }
 ]

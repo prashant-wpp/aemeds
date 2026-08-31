@@ -99,11 +99,7 @@
     {
       "id": "chapter",
       "components": [
-        "command-bar",
-        "geo-banner",
-        "cards",
-        "text",
-        "title"
+        "command-bar"
       ]
     }
   ]
