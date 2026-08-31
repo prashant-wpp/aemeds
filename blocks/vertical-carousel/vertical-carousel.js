@@ -8,6 +8,70 @@
  */
 
 /**
+ * @param {string} value
+ * @returns {boolean}
+ */
+function isVideoUrl(value) {
+  if (!value) return false;
+  try {
+    const url = new URL(value, window.location.href);
+    return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url.pathname) || url.protocol === 'blob:';
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * @param {HTMLVideoElement} video
+ * @param {string} [poster]
+ */
+function prepareBackgroundVideo(video, poster) {
+  video.classList.add('vertical-carousel-video');
+  video.autoplay = true;
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('aria-hidden', 'true');
+  video.setAttribute('tabindex', '-1');
+  if (poster) video.poster = poster;
+}
+
+/**
+ * Builds a background <video> from a URL (section metadata or authored link).
+ * @param {string} src
+ * @param {string} [poster]
+ * @param {{ force?: boolean }} [options] force=true when the URL came from a video DAM field
+ * @returns {HTMLVideoElement|null}
+ */
+function createBackgroundVideo(src, poster, { force = false } = {}) {
+  if (!src) return null;
+  if (!force && !isVideoUrl(src)) return null;
+  const video = document.createElement('video');
+  video.src = src;
+  prepareBackgroundVideo(video, poster);
+  return video;
+}
+
+/**
+ * Builds a full-bleed <picture> from a DAM image URL stored in section metadata.
+ * @param {string} src
+ * @param {string} [alt]
+ * @returns {HTMLPictureElement|null}
+ */
+function createBackgroundPicture(src, alt = '') {
+  if (!src) return null;
+  const picture = document.createElement('picture');
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = alt;
+  img.loading = 'eager';
+  img.fetchPriority = 'high';
+  picture.append(img);
+  return picture;
+}
+
+/**
  * Reads chapter metadata and produces a rail entry.
  * @param {Element} section
  * @param {number} index
@@ -87,28 +151,71 @@ function attachScrollCue(section) {
 }
 
 /**
- * Wraps the section's default background image / video in a media layer so
- * chapter content can sit on top.
+ * Wraps the section's background image / video in a full-bleed media layer.
+ *
+ * Prefer DAM picks from Chapter section metadata (`background_image` /
+ * `background_video`). Fall back to default-content Image / video link for
+ * draft HTML and document authoring.
  * @param {Element} section
  */
 function stageChapterMedia(section) {
   const contentWrapper = section.querySelector(':scope > .default-content-wrapper');
-  if (!contentWrapper) return;
-
   const media = document.createElement('div');
   media.className = 'vertical-carousel-media';
 
-  const picture = contentWrapper.querySelector(':scope > p > picture, :scope > picture');
-  if (picture) {
-    const paragraph = picture.closest('p');
-    media.append(picture);
-    if (paragraph && !paragraph.textContent.trim() && !paragraph.children.length) {
-      paragraph.remove();
+  let picture = null;
+
+  // 1) DAM image from Chapter properties (section metadata)
+  if (section.dataset.backgroundImage) {
+    picture = createBackgroundPicture(
+      section.dataset.backgroundImage,
+      section.dataset.backgroundAlt || '',
+    );
+    if (picture) media.append(picture);
+  }
+
+  // 2) Fallback: Image authored as default content in the chapter body
+  if (!picture && contentWrapper) {
+    picture = contentWrapper.querySelector(':scope > p > picture, :scope > picture');
+    if (picture) {
+      const paragraph = picture.closest('p');
+      media.append(picture);
+      if (paragraph && !paragraph.textContent.trim() && !paragraph.children.length) {
+        paragraph.remove();
+      }
     }
   }
-  const video = contentWrapper.querySelector(':scope > video, :scope > p > video');
-  if (video) {
-    media.append(video);
+
+  const posterSrc = picture?.querySelector('img')?.src || '';
+
+  // 3) DAM video from Chapter properties (always treat as video URL)
+  if (section.dataset.backgroundVideo) {
+    const video = createBackgroundVideo(
+      section.dataset.backgroundVideo,
+      posterSrc,
+      { force: true },
+    );
+    if (video) media.append(video);
+  } else if (contentWrapper) {
+    // 4) Fallback: authored <video> or .mp4 link in the body
+    const existingVideo = contentWrapper.querySelector(':scope > video, :scope > p > video');
+    if (existingVideo) {
+      prepareBackgroundVideo(existingVideo, posterSrc);
+      media.append(existingVideo);
+    } else {
+      const videoLink = [...contentWrapper.querySelectorAll('a[href]')].find((a) => isVideoUrl(a.href));
+      if (videoLink) {
+        const video = createBackgroundVideo(videoLink.href, posterSrc);
+        if (video) {
+          media.append(video);
+          const paragraph = videoLink.closest('p');
+          videoLink.remove();
+          if (paragraph && !paragraph.textContent.trim() && !paragraph.children.length) {
+            paragraph.remove();
+          }
+        }
+      }
+    }
   }
 
   if (media.children.length) {
@@ -117,12 +224,24 @@ function stageChapterMedia(section) {
 }
 
 /**
- * Syncs the active chapter's prompt/icon/segment/chips onto the shared bar
- * via a public event. Command Bar listens for it.
- * @param {Element} section
+ * Applies Command Bar vertical alignment on the shared host.
+ * @param {HTMLElement|null} host
+ * @param {string} align
  */
-function syncCommandBar(section) {
+function applyCommandAlign(host, align) {
+  if (!host) return;
+  const value = ['top', 'middle', 'bottom'].includes(align) ? align : 'bottom';
+  host.dataset.align = value;
+}
+
+/**
+ * Syncs the active chapter's prompt/icon/segment/chips/align onto the shared bar.
+ * @param {Element} section
+ * @param {HTMLElement|null} commandHost
+ */
+function syncCommandBar(section, commandHost) {
   const data = section.dataset;
+  applyCommandAlign(commandHost, data.commandAlign || 'bottom');
   const detail = {
     placeholder: data.commandPrompt || '',
     leadingIcon: data.commandIcon || '',
@@ -131,6 +250,7 @@ function syncCommandBar(section) {
       .split(',')
       .map((s) => s.trim())
       .filter(Boolean),
+    align: data.commandAlign || 'bottom',
     source: 'vertical-carousel',
     chapterId: section.id || '',
   };
@@ -138,12 +258,30 @@ function syncCommandBar(section) {
 }
 
 /**
+ * Plays/pauses chapter background videos based on which slide is active.
+ * @param {Element[]} chapters
+ * @param {number} activeIndex
+ */
+function syncChapterVideos(chapters, activeIndex) {
+  chapters.forEach((section, index) => {
+    const video = section.querySelector('.vertical-carousel-media video');
+    if (!video) return;
+    if (index === activeIndex) {
+      video.play?.().catch(() => {});
+    } else {
+      video.pause?.();
+    }
+  });
+}
+
+/**
  * Observes which chapter is currently in view and syncs bar / rail state.
  * @param {HTMLElement} wrapper
  * @param {Element[]} chapters
  * @param {HTMLElement|null} rail
+ * @param {HTMLElement|null} commandHost
  */
-function observeActiveChapter(wrapper, chapters, rail) {
+function observeActiveChapter(wrapper, chapters, rail, commandHost) {
   const railItems = rail ? [...rail.querySelectorAll('.vertical-carousel-rail-item')] : [];
   let activeIndex = 0;
 
@@ -157,7 +295,8 @@ function observeActiveChapter(wrapper, chapters, rail) {
     railItems.forEach((item, itemIndex) => {
       item.setAttribute('aria-current', itemIndex === index ? 'true' : 'false');
     });
-    syncCommandBar(chapters[index]);
+    syncChapterVideos(chapters, index);
+    syncCommandBar(chapters[index], commandHost);
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -186,18 +325,20 @@ function observeActiveChapter(wrapper, chapters, rail) {
 }
 
 /**
- * Waits for the shared Command Bar (inside a fragment section) to appear and
- * moves it into the persistent chrome layer of the carousel.
+ * Waits for the shared Command Bar (inside a fragment / first chapter) to
+ * appear and moves it into the persistent chrome layer of the carousel.
  * @param {HTMLElement} wrapper
+ * @returns {HTMLElement} the command host element
  */
 function hoistCommandBar(wrapper) {
   const chrome = document.createElement('div');
   chrome.className = 'vertical-carousel-command-host';
+  chrome.dataset.align = 'bottom';
   wrapper.append(chrome);
 
   const tryMove = () => {
     const bar = wrapper.querySelector('.command-bar');
-    if (!bar) return false;
+    if (!bar || chrome.contains(bar)) return Boolean(chrome.querySelector('.command-bar'));
     chrome.append(bar);
     const fragmentHost = wrapper.querySelector('.vertical-carousel-chrome');
     if (fragmentHost && !fragmentHost.querySelector('.block:not([data-block-name="fragment"])')) {
@@ -206,12 +347,14 @@ function hoistCommandBar(wrapper) {
     return true;
   };
 
-  if (tryMove()) return;
+  if (!tryMove()) {
+    const observer = new MutationObserver(() => {
+      if (tryMove()) observer.disconnect();
+    });
+    observer.observe(wrapper, { childList: true, subtree: true });
+  }
 
-  const observer = new MutationObserver(() => {
-    if (tryMove()) observer.disconnect();
-  });
-  observer.observe(wrapper, { childList: true, subtree: true });
+  return chrome;
 }
 
 /**
@@ -230,6 +373,6 @@ export default async function decorate(wrapper) {
   });
 
   const rail = chapters.length > 1 ? buildRail(wrapper, chapters) : null;
-  hoistCommandBar(wrapper);
-  observeActiveChapter(wrapper, chapters, rail);
+  const commandHost = hoistCommandBar(wrapper);
+  observeActiveChapter(wrapper, chapters, rail, commandHost);
 }

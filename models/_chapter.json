@@ -36,6 +36,35 @@
           "description": "Optional anchor, e.g. personal, commercial."
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "background_image",
+          "label": "Background Image",
+          "description": "Select from DAM (/content/dam/aemeds). Used as poster when a video is set.",
+          "multi": false,
+          "validation": {
+            "rootPath": "/content/dam/aemeds"
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "background_alt",
+          "label": "Background Image Alt",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "background_video",
+          "label": "Background Video",
+          "description": "Optional. Select an MP4/WebM from DAM (/content/dam/aemeds).",
+          "multi": false,
+          "validation": {
+            "rootPath": "/content/dam/aemeds"
+          }
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "rail_label",
@@ -48,7 +77,11 @@
           "valueType": "string",
           "name": "rail_thumb",
           "label": "Rail Thumbnail",
-          "multi": false
+          "description": "Select from DAM (/content/dam/aemeds).",
+          "multi": false,
+          "validation": {
+            "rootPath": "/content/dam/aemeds"
+          }
         },
         {
           "component": "text",
@@ -109,6 +142,19 @@
           "label": "Scroll Cue Label",
           "description": "Leave empty to hide. Example: Scroll to explore",
           "value": ""
+        },
+        {
+          "component": "select",
+          "name": "command_align",
+          "label": "Command Bar Vertical Align",
+          "description": "Where the shared Command Bar sits on this chapter.",
+          "valueType": "string",
+          "value": "bottom",
+          "options": [
+            { "name": "Top", "value": "top" },
+            { "name": "Middle", "value": "middle" },
+            { "name": "Bottom", "value": "bottom" }
+          ]
         }
       ]
     }

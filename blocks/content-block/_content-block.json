@@ -60,7 +60,10 @@
           "valueType": "string",
           "name": "media",
           "label": "Image",
-          "multi": false
+          "multi": false,
+          "validation": {
+            "rootPath": "/content/dam/aemeds"
+          }
         },
         {
           "component": "text",
@@ -74,7 +77,10 @@
           "valueType": "string",
           "name": "media_video",
           "label": "Video",
-          "multi": false
+          "multi": false,
+          "validation": {
+            "rootPath": "/content/dam/aemeds"
+          }
         },
         {
           "component": "text",
