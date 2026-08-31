@@ -2,11 +2,11 @@
  * @param {string} value
  * @returns {boolean}
  */
-function isMediaUrl(value) {
+function isVideoUrl(value) {
   if (!value) return false;
   try {
     const url = new URL(value, window.location.href);
-    return /\.(mp4|webm|ogg)(\?|$)/i.test(url.pathname) || url.protocol === 'blob:';
+    return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url.pathname) || url.protocol === 'blob:';
   } catch {
     return false;
   }
@@ -28,6 +28,49 @@ function readKeyValueCells(block) {
 }
 
 /**
+ * @param {HTMLVideoElement} video
+ */
+function prepareBackgroundVideo(video) {
+  video.classList.add('chapter-video');
+  video.autoplay = true;
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('aria-hidden', 'true');
+  video.setAttribute('tabindex', '-1');
+}
+
+/**
+ * Resolves a background video from a DAM reference cell (link, video, or source).
+ * @param {Element|undefined} cell
+ * @returns {HTMLVideoElement|null}
+ */
+function resolveVideoFromCell(cell) {
+  if (!cell) return null;
+
+  const existing = cell.querySelector('video');
+  if (existing) {
+    const video = existing.cloneNode(true);
+    prepareBackgroundVideo(video);
+    return video;
+  }
+
+  const source = cell.querySelector('source[src]');
+  const link = cell.querySelector('a[href]');
+  const src = source?.getAttribute('src')
+    || (link?.href && isVideoUrl(link.href) ? link.href : '')
+    || (isVideoUrl(cell.textContent.trim()) ? cell.textContent.trim() : '');
+
+  if (!src) return null;
+
+  const video = document.createElement('video');
+  video.src = src;
+  prepareBackgroundVideo(video);
+  return video;
+}
+
+/**
  * loads and decorates the chapter block
  * @param {Element} block The block element
  */
@@ -44,10 +87,7 @@ export default function decorate(block) {
       ? Object.assign(document.createElement('h1'), { textContent: headingText })
       : null);
 
-  const videoRaw = cells.videoUrl?.querySelector('a')?.href
-    || cells.videoUrl?.textContent.trim()
-    || '';
-  const videoUrl = isMediaUrl(videoRaw) ? videoRaw : '';
+  const backgroundVideo = resolveVideoFromCell(cells.video);
   const scrollCueLabel = cells.scrollCueLabel?.textContent.trim() || '';
 
   let supporting = null;
@@ -60,18 +100,10 @@ export default function decorate(block) {
   const media = document.createElement('div');
   media.className = 'chapter-media';
 
-  if (videoUrl) {
-    const video = document.createElement('video');
-    video.className = 'chapter-video';
-    video.src = videoUrl;
-    video.autoplay = true;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.setAttribute('playsinline', '');
+  if (backgroundVideo) {
     const img = backgroundPicture?.querySelector('img');
-    if (img?.src) video.poster = img.src;
-    media.append(video);
+    if (img?.src) backgroundVideo.poster = img.src;
+    media.append(backgroundVideo);
   } else if (backgroundPicture) {
     backgroundPicture.classList.add('chapter-background');
     media.append(backgroundPicture);

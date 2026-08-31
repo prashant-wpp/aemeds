@@ -36,11 +36,12 @@
           "value": ""
         },
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
-          "name": "videoUrl",
-          "label": "Background Video URL",
-          "description": "Optional. When set, plays as background media (image used as poster)."
+          "name": "video",
+          "label": "Background Video",
+          "description": "Optional. Select MP4 or WebM from AEM DAM. Image above is used as poster when both are set.",
+          "multi": false
         },
         {
           "component": "text",
