@@ -10,6 +10,7 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
+import { preserveChapterMedia } from './chapter-media.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -166,6 +167,8 @@ async function initChapterCarousel(wrapper) {
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
+  // Capture DAM picture/video nodes before section-metadata is removed.
+  preserveChapterMedia(main);
   decorateSections(main);
   const carousel = wrapChapterSections(main);
   decorateBlocks(main);

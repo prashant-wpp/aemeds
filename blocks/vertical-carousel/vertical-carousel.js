@@ -1,3 +1,5 @@
+import { chapterMediaStore } from '../../scripts/chapter-media.js';
+
 /*
  * Vertical Carousel — runtime coordinator (no author insertion).
  *
@@ -153,9 +155,10 @@ function attachScrollCue(section) {
 /**
  * Wraps the section's background image / video in a full-bleed media layer.
  *
- * Prefer DAM picks from Chapter section metadata (`background_image` /
- * `background_video`). Fall back to default-content Image / video link for
- * draft HTML and document authoring.
+ * Order of preference:
+ * 1. Nodes preserved from section-metadata (DAM picture / video / link)
+ * 2. Dataset URLs left by decorateSections
+ * 3. Default-content Image / video link in the chapter body
  * @param {Element} section
  */
 function stageChapterMedia(section) {
@@ -163,19 +166,25 @@ function stageChapterMedia(section) {
   const media = document.createElement('div');
   media.className = 'vertical-carousel-media';
 
+  const stash = chapterMediaStore.get(section);
   let picture = null;
 
-  // 1) DAM image from Chapter properties (section metadata)
-  if (section.dataset.backgroundImage) {
+  // 1) Preserved DAM picture from section-metadata
+  if (stash?.picture) {
+    picture = stash.picture;
+    media.append(picture);
+  } else if (stash?.imageSrc) {
+    picture = createBackgroundPicture(stash.imageSrc, stash.imageAlt || '');
+    if (picture) media.append(picture);
+  } else if (section.dataset.backgroundImage) {
+    // 2) URL string from decorateSections
     picture = createBackgroundPicture(
       section.dataset.backgroundImage,
       section.dataset.backgroundAlt || '',
     );
     if (picture) media.append(picture);
-  }
-
-  // 2) Fallback: Image authored as default content in the chapter body
-  if (!picture && contentWrapper) {
+  } else if (contentWrapper) {
+    // 3) Fallback: Image in chapter body
     picture = contentWrapper.querySelector(':scope > p > picture, :scope > picture');
     if (picture) {
       const paragraph = picture.closest('p');
@@ -188,30 +197,32 @@ function stageChapterMedia(section) {
 
   const posterSrc = picture?.querySelector('img')?.src || '';
 
-  // 3) DAM video from Chapter properties (always treat as video URL)
-  if (section.dataset.backgroundVideo) {
-    const video = createBackgroundVideo(
-      section.dataset.backgroundVideo,
-      posterSrc,
-      { force: true },
-    );
-    if (video) media.append(video);
-  } else if (contentWrapper) {
-    // 4) Fallback: authored <video> or .mp4 link in the body
-    const existingVideo = contentWrapper.querySelector(':scope > video, :scope > p > video');
-    if (existingVideo) {
-      prepareBackgroundVideo(existingVideo, posterSrc);
-      media.append(existingVideo);
-    } else {
-      const videoLink = [...contentWrapper.querySelectorAll('a[href]')].find((a) => isVideoUrl(a.href));
-      if (videoLink) {
-        const video = createBackgroundVideo(videoLink.href, posterSrc);
-        if (video) {
-          media.append(video);
-          const paragraph = videoLink.closest('p');
-          videoLink.remove();
-          if (paragraph && !paragraph.textContent.trim() && !paragraph.children.length) {
-            paragraph.remove();
+  // Video: preserved node → preserved href → dataset → body
+  if (stash?.video) {
+    prepareBackgroundVideo(stash.video, posterSrc);
+    media.append(stash.video);
+  } else {
+    const videoSrc = stash?.videoHref || section.dataset.backgroundVideo || '';
+    if (videoSrc) {
+      const video = createBackgroundVideo(videoSrc, posterSrc, { force: true });
+      if (video) media.append(video);
+    } else if (contentWrapper) {
+      const existingVideo = contentWrapper.querySelector(':scope > video, :scope > p > video');
+      if (existingVideo) {
+        prepareBackgroundVideo(existingVideo, posterSrc);
+        media.append(existingVideo);
+      } else {
+        const videoLink = [...contentWrapper.querySelectorAll('a[href]')]
+          .find((a) => isVideoUrl(a.href));
+        if (videoLink) {
+          const video = createBackgroundVideo(videoLink.href, posterSrc);
+          if (video) {
+            media.append(video);
+            const paragraph = videoLink.closest('p');
+            videoLink.remove();
+            if (paragraph && !paragraph.textContent.trim() && !paragraph.children.length) {
+              paragraph.remove();
+            }
           }
         }
       }

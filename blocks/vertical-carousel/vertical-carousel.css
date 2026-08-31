@@ -23,11 +23,13 @@
   isolation: isolate;
 }
 
-.vertical-carousel > .section.vertical-carousel-chapter > div {
+.vertical-carousel > .section.vertical-carousel-chapter > .default-content-wrapper,
+.vertical-carousel > .section.vertical-carousel-chapter > .fragment-wrapper {
   max-width: none;
   padding: 0;
   min-height: 100dvh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -51,6 +53,7 @@
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .vertical-carousel-media::after {
