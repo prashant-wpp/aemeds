@@ -13,7 +13,8 @@
           }
         }
       }
-    }
+    },
+    { "...": "./_chapter.json#/definitions" }
   ],
   "models": [
     {
@@ -37,7 +38,8 @@
           ]
         }
       ]
-    }
+    },
+    { "...": "./_chapter.json#/models" }
   ],
   "filters": [
     {
@@ -60,12 +62,10 @@
         "image-text",
         "tyre-sizes",
         "tyre-detail",
-        "chapter",
-        "command-bar",
         "geo-banner",
-        "intelligence-hub",
-        "vertical-slider"
+        "intelligence-hub"
       ]
-    }
+    },
+    { "...": "./_chapter.json#/filters" }
   ]
 }

@@ -15,6 +15,21 @@
           }
         }
       }
+    },
+    {
+      "title": "Command Bar",
+      "id": "command-bar-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Command Bar",
+              "model": "command-bar-item"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -77,6 +92,79 @@
         {
           "component": "select",
           "name": "segmentHint",
+          "label": "Segment Hint",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            { "name": "None", "value": "" },
+            { "name": "Personal", "value": "personal" },
+            { "name": "Commercial", "value": "commercial" },
+            { "name": "Agriculture", "value": "agriculture" },
+            { "name": "Support", "value": "support" },
+            { "name": "Stories", "value": "stories" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "command-bar-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "command_placeholder",
+          "label": "Placeholder",
+          "value": "I'm looking for car tyres"
+        },
+        {
+          "component": "select",
+          "name": "command_leadingIcon",
+          "label": "Leading Icon",
+          "valueType": "string",
+          "value": "car",
+          "options": [
+            { "name": "Car", "value": "car" },
+            { "name": "Search", "value": "search" },
+            { "name": "Tyre", "value": "tyre" },
+            { "name": "None", "value": "none" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "command_submitLabel",
+          "label": "Submit Aria Label",
+          "value": "Submit"
+        },
+        {
+          "component": "boolean",
+          "name": "command_showAttach",
+          "label": "Show Attach Control",
+          "valueType": "boolean"
+        },
+        {
+          "component": "select",
+          "name": "command_action",
+          "label": "Action",
+          "valueType": "string",
+          "value": "open-intelligence",
+          "options": [
+            { "name": "Open Intelligence", "value": "open-intelligence" },
+            { "name": "Open Tyre Finder", "value": "open-finder" },
+            { "name": "Navigate", "value": "navigate" },
+            { "name": "Query Event", "value": "query" }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "command_link",
+          "label": "Navigate Link",
+          "description": "Used when Action is Navigate."
+        },
+        {
+          "component": "select",
+          "name": "command_segmentHint",
           "label": "Segment Hint",
           "valueType": "string",
           "value": "",

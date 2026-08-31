@@ -172,6 +172,132 @@
     ]
   },
   {
+    "id": "chapter",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "Label shown in the Content Tree (e.g. Personal, Commercial)."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Section Anchor ID",
+        "description": "Optional anchor, e.g. personal, commercial."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "rail_label",
+        "label": "Rail Label",
+        "description": "Right-rail / navigation label for this chapter.",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "rail_thumb",
+        "label": "Rail Thumbnail",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "rail_alt",
+        "label": "Rail Thumbnail Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "command_prompt",
+        "label": "Command Bar Prompt",
+        "description": "Synced onto the shared Command Bar when this chapter is active.",
+        "value": "I'm looking for car tyres"
+      },
+      {
+        "component": "select",
+        "name": "command_icon",
+        "label": "Command Bar Icon",
+        "valueType": "string",
+        "value": "car",
+        "options": [
+          {
+            "name": "Car",
+            "value": "car"
+          },
+          {
+            "name": "Search",
+            "value": "search"
+          },
+          {
+            "name": "Tyre",
+            "value": "tyre"
+          },
+          {
+            "name": "None",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "command_segment",
+        "label": "Segment Hint",
+        "valueType": "string",
+        "value": "personal",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Personal",
+            "value": "personal"
+          },
+          {
+            "name": "Commercial",
+            "value": "commercial"
+          },
+          {
+            "name": "Agriculture",
+            "value": "agriculture"
+          },
+          {
+            "name": "Support",
+            "value": "support"
+          },
+          {
+            "name": "Stories",
+            "value": "stories"
+          },
+          {
+            "name": "Know Apollo",
+            "value": "know-apollo"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "command_chips",
+        "label": "Suggestion Chips",
+        "description": "Optional. Comma-separated labels shown under the Command Bar for this chapter.",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "command_cue",
+        "label": "Scroll Cue Label",
+        "description": "Leave empty to hide. Example: Scroll to explore",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -187,90 +313,6 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "chapter",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Background Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Background Image Alt",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "video",
-        "label": "Background Video",
-        "description": "Optional. Select MP4 or WebM from AEM DAM. Image above is used as poster when both are set.",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "heading",
-        "label": "Headline"
-      },
-      {
-        "component": "select",
-        "name": "headingType",
-        "label": "Headline Level",
-        "valueType": "string",
-        "value": "h1",
-        "options": [
-          {
-            "name": "H1",
-            "value": "h1"
-          },
-          {
-            "name": "H2",
-            "value": "h2"
-          },
-          {
-            "name": "H3",
-            "value": "h3"
-          }
-        ]
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "label": "Supporting Text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "thumbnail",
-        "label": "Scene Thumbnail",
-        "description": "Optional small preview (e.g. alternate scene).",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "thumbnailAlt",
-        "label": "Scene Thumbnail Alt",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "scrollCueLabel",
-        "label": "Scroll Cue Label",
-        "description": "Leave empty to hide the scroll cue. Default suggestion: Scroll to explore",
-        "value": ""
       }
     ]
   },
@@ -376,6 +418,121 @@
       {
         "component": "select",
         "name": "segmentHint",
+        "label": "Segment Hint",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Personal",
+            "value": "personal"
+          },
+          {
+            "name": "Commercial",
+            "value": "commercial"
+          },
+          {
+            "name": "Agriculture",
+            "value": "agriculture"
+          },
+          {
+            "name": "Support",
+            "value": "support"
+          },
+          {
+            "name": "Stories",
+            "value": "stories"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "command-bar-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "command_placeholder",
+        "label": "Placeholder",
+        "value": "I'm looking for car tyres"
+      },
+      {
+        "component": "select",
+        "name": "command_leadingIcon",
+        "label": "Leading Icon",
+        "valueType": "string",
+        "value": "car",
+        "options": [
+          {
+            "name": "Car",
+            "value": "car"
+          },
+          {
+            "name": "Search",
+            "value": "search"
+          },
+          {
+            "name": "Tyre",
+            "value": "tyre"
+          },
+          {
+            "name": "None",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "command_submitLabel",
+        "label": "Submit Aria Label",
+        "value": "Submit"
+      },
+      {
+        "component": "boolean",
+        "name": "command_showAttach",
+        "label": "Show Attach Control",
+        "valueType": "boolean"
+      },
+      {
+        "component": "select",
+        "name": "command_action",
+        "label": "Action",
+        "valueType": "string",
+        "value": "open-intelligence",
+        "options": [
+          {
+            "name": "Open Intelligence",
+            "value": "open-intelligence"
+          },
+          {
+            "name": "Open Tyre Finder",
+            "value": "open-finder"
+          },
+          {
+            "name": "Navigate",
+            "value": "navigate"
+          },
+          {
+            "name": "Query Event",
+            "value": "query"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "command_link",
+        "label": "Navigate Link",
+        "description": "Used when Action is Navigate."
+      },
+      {
+        "component": "select",
+        "name": "command_segmentHint",
         "label": "Segment Hint",
         "valueType": "string",
         "value": "",
@@ -1042,25 +1199,6 @@
             "value": "true"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "vertical-slider",
-    "fields": [
-      {
-        "component": "boolean",
-        "name": "showNavigation",
-        "label": "Show Slide Navigation",
-        "valueType": "boolean",
-        "value": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "navigationLabel",
-        "label": "Navigation Aria Label",
-        "value": "Homepage chapters"
       }
     ]
   },

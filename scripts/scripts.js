@@ -110,6 +110,55 @@ export function decorateButtons(main) {
 }
 
 /**
+ * Groups consecutive Chapter sections (plus a trailing shared Command Bar
+ * fragment section) into a `.vertical-carousel` wrapper. Runs after
+ * `decorateSections` so `data-chapter` is populated; safe for `decorateBlocks`
+ * because chapter sections keep `.section` and their inner block divs.
+ * @param {Element} main
+ */
+function wrapChapterSections(main) {
+  const chapters = [...main.querySelectorAll(':scope > .section[data-chapter="true"]')];
+  if (!chapters.length) return null;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'vertical-carousel';
+  wrapper.setAttribute('role', 'region');
+  wrapper.setAttribute('aria-label', 'Homepage chapters');
+  wrapper.tabIndex = 0;
+
+  chapters[0].parentNode.insertBefore(wrapper, chapters[0]);
+  chapters.forEach((section) => wrapper.append(section));
+
+  const after = wrapper.nextElementSibling;
+  const fragmentBlock = after?.classList?.contains('section')
+    ? after.querySelector(':scope > div > .fragment')
+    : null;
+  if (fragmentBlock) {
+    after.classList.add('vertical-carousel-chrome');
+    wrapper.append(after);
+  }
+
+  return wrapper;
+}
+
+/**
+ * Dynamically loads the Vertical Carousel coordinator (rail, sync, hoist)
+ * once chapter sections have been wrapped.
+ * @param {HTMLElement} wrapper
+ */
+async function initChapterCarousel(wrapper) {
+  if (!wrapper) return;
+  loadCSS(`${window.hlx.codeBasePath}/blocks/vertical-carousel/vertical-carousel.css`);
+  try {
+    const mod = await import(`${window.hlx.codeBasePath}/blocks/vertical-carousel/vertical-carousel.js`);
+    if (mod.default) await mod.default(wrapper);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Vertical Carousel failed to initialise', error);
+  }
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -118,8 +167,10 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  const carousel = wrapChapterSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  if (carousel) initChapterCarousel(carousel);
 }
 
 /**

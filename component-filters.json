@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "chapter"
     ]
   },
   {
@@ -25,23 +26,23 @@
       "image-text",
       "tyre-sizes",
       "tyre-detail",
-      "chapter",
-      "command-bar",
       "geo-banner",
-      "intelligence-hub",
-      "vertical-slider"
+      "intelligence-hub"
+    ]
+  },
+  {
+    "id": "chapter",
+    "components": [
+      "title",
+      "text",
+      "image",
+      "fragment"
     ]
   },
   {
     "id": "cards",
     "components": [
       "card"
-    ]
-  },
-  {
-    "id": "chapter",
-    "components": [
-      "command-bar"
     ]
   },
   {

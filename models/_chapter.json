@@ -1,0 +1,127 @@
+{
+  "definitions": [
+    {
+      "title": "Chapter",
+      "id": "chapter",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "name": "Chapter",
+              "model": "chapter",
+              "filter": "chapter",
+              "chapter": "true"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "chapter",
+      "fields": [
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "Label shown in the Content Tree (e.g. Personal, Commercial)."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "id",
+          "label": "Section Anchor ID",
+          "description": "Optional anchor, e.g. personal, commercial."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "rail_label",
+          "label": "Rail Label",
+          "description": "Right-rail / navigation label for this chapter.",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "rail_thumb",
+          "label": "Rail Thumbnail",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "rail_alt",
+          "label": "Rail Thumbnail Alt",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "command_prompt",
+          "label": "Command Bar Prompt",
+          "description": "Synced onto the shared Command Bar when this chapter is active.",
+          "value": "I'm looking for car tyres"
+        },
+        {
+          "component": "select",
+          "name": "command_icon",
+          "label": "Command Bar Icon",
+          "valueType": "string",
+          "value": "car",
+          "options": [
+            { "name": "Car", "value": "car" },
+            { "name": "Search", "value": "search" },
+            { "name": "Tyre", "value": "tyre" },
+            { "name": "None", "value": "none" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "command_segment",
+          "label": "Segment Hint",
+          "valueType": "string",
+          "value": "personal",
+          "options": [
+            { "name": "None", "value": "" },
+            { "name": "Personal", "value": "personal" },
+            { "name": "Commercial", "value": "commercial" },
+            { "name": "Agriculture", "value": "agriculture" },
+            { "name": "Support", "value": "support" },
+            { "name": "Stories", "value": "stories" },
+            { "name": "Know Apollo", "value": "know-apollo" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "command_chips",
+          "label": "Suggestion Chips",
+          "description": "Optional. Comma-separated labels shown under the Command Bar for this chapter.",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "command_cue",
+          "label": "Scroll Cue Label",
+          "description": "Leave empty to hide. Example: Scroll to explore",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "chapter",
+      "components": [
+        "title",
+        "text",
+        "image",
+        "fragment"
+      ]
+    }
+  ]
+}

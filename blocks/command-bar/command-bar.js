@@ -109,4 +109,56 @@ export default async function decorate(block) {
 
   block.replaceChildren(form);
   decorateIcons(block);
+
+  // Optional chip row rendered under the bar. Updated per active chapter.
+  const chips = document.createElement('div');
+  chips.className = 'command-bar-chips';
+  chips.hidden = true;
+  block.append(chips);
+
+  /**
+   * External surfaces (e.g. Vertical Carousel) can dispatch this event to
+   * update the bar for the currently active chapter.
+   * @param {CustomEvent} event
+   */
+  const applySync = (event) => {
+    const detail = event.detail || {};
+    if (typeof detail.placeholder === 'string' && detail.placeholder) {
+      input.placeholder = detail.placeholder;
+    }
+    if (typeof detail.leadingIcon === 'string' && detail.leadingIcon) {
+      const existing = form.querySelector(':scope > .icon');
+      if (detail.leadingIcon === 'none') {
+        existing?.remove();
+      } else {
+        const iconEl = existing || document.createElement('span');
+        iconEl.className = `icon icon-${detail.leadingIcon}`;
+        iconEl.replaceChildren();
+        if (!existing) form.prepend(iconEl);
+        decorateIcons(form);
+      }
+    }
+    if (typeof detail.segmentHint === 'string') {
+      config.segmentHint = detail.segmentHint;
+    }
+    if (Array.isArray(detail.chips)) {
+      chips.replaceChildren(...detail.chips.map((label) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'command-bar-chip';
+        chip.textContent = label;
+        chip.addEventListener('click', () => {
+          input.value = label;
+          runAction('command-bar-chip');
+        });
+        return chip;
+      }));
+      chips.hidden = detail.chips.length === 0;
+    }
+    if (detail.chapterId) {
+      block.dataset.activeChapter = detail.chapterId;
+    }
+  };
+
+  window.addEventListener('apollo:command-bar:sync', applySync);
 }

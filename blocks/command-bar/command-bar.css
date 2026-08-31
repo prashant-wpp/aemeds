@@ -85,16 +85,27 @@
   outline-offset: 2px;
 }
 
-/* Sit naturally inside a chapter section or nested in chapter */
-.chapter-container .command-bar-wrapper,
-.chapter .chapter-children .command-bar-wrapper {
-  margin-top: -4rem;
-  margin-bottom: 2rem;
-  position: relative;
-  z-index: 2;
+.command-bar .command-bar-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  justify-content: center;
 }
 
-.chapter .chapter-children .command-bar-wrapper {
-  margin-top: 0;
-  margin-bottom: 0;
+.command-bar .command-bar-chip {
+  border: 1px solid rgb(255 255 255 / 35%);
+  background: rgb(20 20 20 / 45%);
+  color: #fff;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font: inherit;
+  font-size: var(--body-font-size-xs);
+  cursor: pointer;
+}
+
+.command-bar .command-bar-chip:hover,
+.command-bar .command-bar-chip:focus-visible {
+  border-color: var(--brand-accent);
+  outline: none;
 }

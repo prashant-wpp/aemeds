@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apollo Tyres — homepage chapters (authoring sketch)</title>
+  <meta name="description" content="Draft markup for Chapter sections + shared Command Bar fragment.">
+</head>
+<body>
+  <header></header>
+  <main>
+    <!-- Chapter 1: Personal (LCP). Fragment lives inside so the Command Bar is
+         part of the eager section; runtime hoists it into carousel chrome. -->
+    <div>
+      <picture>
+        <img src="./media/personal.jpg" alt="Passenger car on the road">
+      </picture>
+      <h1>GO THE DISTANCE</h1>
+      <div class="fragment">
+        <div>
+          <div>
+            <a href="/fragments/command-bars/homepage">/fragments/command-bars/homepage</a>
+          </div>
+        </div>
+      </div>
+      <div class="section-metadata">
+        <div><div>chapter</div><div>true</div></div>
+        <div><div>name</div><div>Personal</div></div>
+        <div><div>id</div><div>personal</div></div>
+        <div><div>rail_label</div><div>For Personal</div></div>
+        <div><div>command_prompt</div><div>I'm looking for car tyres</div></div>
+        <div><div>command_icon</div><div>car</div></div>
+        <div><div>command_segment</div><div>personal</div></div>
+        <div><div>command_cue</div><div>Scroll to explore</div></div>
+      </div>
+    </div>
+
+    <div>
+      <picture>
+        <img src="./media/commercial.jpg" alt="Commercial truck">
+      </picture>
+      <h1>BUILT TO HAUL</h1>
+      <div class="section-metadata">
+        <div><div>chapter</div><div>true</div></div>
+        <div><div>name</div><div>Commercial</div></div>
+        <div><div>id</div><div>commercial</div></div>
+        <div><div>rail_label</div><div>For Commercial</div></div>
+        <div><div>command_prompt</div><div>I'm looking for commercial tyres</div></div>
+        <div><div>command_icon</div><div>search</div></div>
+        <div><div>command_segment</div><div>commercial</div></div>
+        <div><div>command_cue</div><div>Scroll to explore</div></div>
+      </div>
+    </div>
+
+    <div>
+      <picture>
+        <img src="./media/agriculture.jpg" alt="Tractor in a field">
+      </picture>
+      <h1>OUTLAST EVERY HARVEST</h1>
+      <div class="section-metadata">
+        <div><div>chapter</div><div>true</div></div>
+        <div><div>name</div><div>Agriculture</div></div>
+        <div><div>id</div><div>agriculture</div></div>
+        <div><div>rail_label</div><div>For Agriculture</div></div>
+        <div><div>command_prompt</div><div>I'm looking for agriculture tyres</div></div>
+        <div><div>command_icon</div><div>search</div></div>
+        <div><div>command_segment</div><div>agriculture</div></div>
+        <div><div>command_cue</div><div>Scroll to explore</div></div>
+      </div>
+    </div>
+
+    <div>
+      <picture>
+        <img src="./media/support.jpg" alt="Tyre support">
+      </picture>
+      <h1>READY TO SUPPORT</h1>
+      <div class="section-metadata">
+        <div><div>chapter</div><div>true</div></div>
+        <div><div>name</div><div>Support</div></div>
+        <div><div>id</div><div>support</div></div>
+        <div><div>rail_label</div><div>Help &amp; Support</div></div>
+        <div><div>command_prompt</div><div>I want help with tyre warranty</div></div>
+        <div><div>command_icon</div><div>search</div></div>
+        <div><div>command_segment</div><div>support</div></div>
+        <div><div>command_chips</div><div>Connect with Us, FAQ, Warranty</div></div>
+      </div>
+    </div>
+
+    <div>
+      <picture>
+        <img src="./media/stories.jpg" alt="Apollo stories">
+      </picture>
+      <h1>HAR SAFAR MEIN DUM HAI</h1>
+      <div class="section-metadata">
+        <div><div>chapter</div><div>true</div></div>
+        <div><div>name</div><div>Stories</div></div>
+        <div><div>id</div><div>stories</div></div>
+        <div><div>rail_label</div><div>Stories</div></div>
+        <div><div>command_prompt</div><div>I am looking for promotions</div></div>
+        <div><div>command_icon</div><div>search</div></div>
+        <div><div>command_segment</div><div>stories</div></div>
+        <div><div>command_chips</div><div>United We Play, Empowering Farmers with Apollo Virat, Apollo Tyres Exchange Festival</div></div>
+      </div>
+    </div>
+
+    <div>
+      <picture>
+        <img src="./media/know-apollo.jpg" alt="Apollo technology">
+      </picture>
+      <h1>DISTANCE STARTS HERE</h1>
+      <div class="section-metadata">
+        <div><div>chapter</div><div>true</div></div>
+        <div><div>name</div><div>Know Apollo</div></div>
+        <div><div>id</div><div>know-apollo</div></div>
+        <div><div>rail_label</div><div>Know Apollo</div></div>
+        <div><div>command_prompt</div><div>Get to know Apollo</div></div>
+        <div><div>command_icon</div><div>search</div></div>
+        <div><div>command_segment</div><div>know-apollo</div></div>
+        <div><div>command_chips</div><div>Sustainability, Know Apollo</div></div>
+      </div>
+    </div>
+
+    <!-- Geo Banner overlay: outside the carousel; can be delayed. -->
+    <div>
+      <div class="geo-banner">
+        <div><div>message</div><div>Choose another country or region to see content specific to your location.</div></div>
+        <div><div>continueLabel</div><div>Continue</div></div>
+        <div><div>marketLabel</div><div>India</div></div>
+        <div><div>dismissible</div><div>true</div></div>
+      </div>
+    </div>
+  </main>
+  <footer></footer>
+</body>
+</html>
