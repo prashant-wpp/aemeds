@@ -63,7 +63,8 @@
         "tyre-sizes",
         "tyre-detail",
         "geo-banner",
-        "intelligence-hub"
+        "intelligence-hub",
+        "command-bar"
       ]
     },
     { "...": "./_chapter.json#/filters" }
