@@ -18,7 +18,8 @@ module.exports = {
     'import/extensions': ['error', { js: 'always' }], // require js file extensions in imports
     'linebreak-style': ['error', 'unix'], // enforce unix linebreaks
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
-    // Chapter is a section-metadata model (key/value), not a block table — allow more fields.
-    'xwalk/max-cells': ['error', { '*': 4, chapter: 8 }],
+    // Chapter is section-metadata (key/value). Hyphenated names avoid xwalk
+    // underscore persistence bugs; allow enough fields for chapter chrome.
+    'xwalk/max-cells': ['error', { '*': 4, chapter: 20 }],
   },
 };

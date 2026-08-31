@@ -70,21 +70,19 @@ Runtime → <div class="vertical-carousel"> ... chapter sections ... </div>
 |---|---|---|
 | `name` | — (UE tree only) | Content Tree label |
 | `id` | section `id` attribute | Reserved section anchor |
-| `rail_label` | `dataset.railLabel` | Right-rail card label |
-| `background_image` / `background_alt` | `dataset.backgroundImage` / `dataset.backgroundAlt` | DAM image (`reference`, rootPath `/content/dam/aemeds`); poster when video is set |
-| `background_video` | `dataset.backgroundVideo` | DAM video (`reference`, rootPath `/content/dam/aemeds`) |
-| `rail_label` | `dataset.railLabel` | Right-rail card label |
-| `rail_thumb` / `rail_alt` | `dataset.railThumb` / `dataset.railAlt` | Rail card image + alt (DAM) |
-| `command_prompt` | `dataset.commandPrompt` | Placeholder synced onto the shared bar |
-| `command_icon` | `dataset.commandIcon` | Leading icon token (`car`, `search`, `tyre`, `none`) |
-| `command_segment` | `dataset.commandSegment` | Personal / Commercial / Agriculture / Support / Stories / Know Apollo |
-| `command_chips` | `dataset.commandChips` | Comma-separated labels rendered as chips |
-| `command_cue` | `dataset.commandCue` | Optional “Scroll to explore” pill |
-| `command_align` | `dataset.commandAlign` | Shared bar vertical position: `top` / `middle` / `bottom` |
+| `chapter` | `dataset.chapter` | Hidden flag `"true"` for carousel detection |
+| `background-image` / `background-alt` | `dataset.backgroundImage` / `dataset.backgroundAlt` | DAM image (`reference`, rootPath `/content/dam/aemeds`); poster when video is set |
+| `background-video` | `dataset.backgroundVideo` | DAM video (`reference`, rootPath `/content/dam/aemeds`) |
+| `rail-label` | `dataset.railLabel` | Right-rail card label |
+| `rail-thumb` / `rail-alt` | `dataset.railThumb` / `dataset.railAlt` | Rail card image + alt (DAM) |
+| `command-prompt` | `dataset.commandPrompt` | Placeholder synced onto the shared bar |
+| `command-icon` | `dataset.commandIcon` | Leading icon token (`car`, `search`, `tyre`, `none`) |
+| `command-segment` | `dataset.commandSegment` | Personal / Commercial / Agriculture / Support / Stories / Know Apollo |
+| `command-chips` | `dataset.commandChips` | Comma-separated labels rendered as chips |
+| `command-cue` | `dataset.commandCue` | Optional “Scroll to explore” pill |
+| `command-align` | `dataset.commandAlign` | Shared bar vertical position: `top` / `middle` / `bottom` |
 
-Names use single-underscore element grouping (`groupname_field`) so they respect the `xwalk/max-cells` (≤4 top-level groups) and `xwalk/invalid-field-name` (≤1 `_`) rules while keeping tidy `dataset.*` keys after `toClassName` + `toCamelCase`.
-
-**Template-injected (hidden):** `chapter: "true"` — used by `wrapChapterSections` for detection.
+Field names use **hyphens** (not underscores). Underscores in model `name`s are rejected by Universal Editor / xwalk persistence, so values never reach published HTML. After `toClassName` + `toCamelCase`, hyphens still become tidy `dataset.*` keys.
 
 **Chapter filter allows:** `title`, `text`, `image`, `fragment`.  
 Authors put the headline as **Title (h1)** and background as **Image** in the section body; both are default content and get real semantic markup.

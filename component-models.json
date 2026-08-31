@@ -191,9 +191,17 @@
         "description": "Optional anchor, e.g. personal, commercial."
       },
       {
+        "component": "text",
+        "valueType": "string",
+        "name": "chapter",
+        "label": "Chapter Flag",
+        "value": "true",
+        "hidden": true
+      },
+      {
         "component": "reference",
         "valueType": "string",
-        "name": "background_image",
+        "name": "background-image",
         "label": "Background Image",
         "description": "Select from DAM (/content/dam/aemeds). Used as poster when a video is set.",
         "multi": false,
@@ -204,14 +212,14 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "background_alt",
+        "name": "background-alt",
         "label": "Background Image Alt",
         "value": ""
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "background_video",
+        "name": "background-video",
         "label": "Background Video",
         "description": "Optional. Select an MP4/WebM from DAM (/content/dam/aemeds).",
         "multi": false,
@@ -222,7 +230,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "rail_label",
+        "name": "rail-label",
         "label": "Rail Label",
         "description": "Right-rail / navigation label for this chapter.",
         "value": ""
@@ -230,7 +238,7 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "rail_thumb",
+        "name": "rail-thumb",
         "label": "Rail Thumbnail",
         "description": "Select from DAM (/content/dam/aemeds).",
         "multi": false,
@@ -241,21 +249,21 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "rail_alt",
+        "name": "rail-alt",
         "label": "Rail Thumbnail Alt",
         "value": ""
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "command_prompt",
+        "name": "command-prompt",
         "label": "Command Bar Prompt",
         "description": "Synced onto the shared Command Bar when this chapter is active.",
         "value": "I'm looking for car tyres"
       },
       {
         "component": "select",
-        "name": "command_icon",
+        "name": "command-icon",
         "label": "Command Bar Icon",
         "valueType": "string",
         "value": "car",
@@ -280,7 +288,7 @@
       },
       {
         "component": "select",
-        "name": "command_segment",
+        "name": "command-segment",
         "label": "Segment Hint",
         "valueType": "string",
         "value": "personal",
@@ -318,7 +326,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "command_chips",
+        "name": "command-chips",
         "label": "Suggestion Chips",
         "description": "Optional. Comma-separated labels shown under the Command Bar for this chapter.",
         "value": ""
@@ -326,14 +334,14 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "command_cue",
+        "name": "command-cue",
         "label": "Scroll Cue Label",
         "description": "Leave empty to hide. Example: Scroll to explore",
         "value": ""
       },
       {
         "component": "select",
-        "name": "command_align",
+        "name": "command-align",
         "label": "Command Bar Vertical Align",
         "description": "Where the shared Command Bar sits on this chapter.",
         "valueType": "string",
