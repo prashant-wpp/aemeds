@@ -27,7 +27,8 @@
       "tyre-detail",
       "chapter",
       "command-bar",
-      "geo-banner"
+      "geo-banner",
+      "intelligence-hub"
     ]
   },
   {
@@ -61,6 +62,12 @@
     "id": "explore-panels",
     "components": [
       "explore-panel"
+    ]
+  },
+  {
+    "id": "intelligence-hub",
+    "components": [
+      "intelligence-hub-card"
     ]
   },
   {

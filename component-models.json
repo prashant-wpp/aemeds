@@ -787,6 +787,94 @@
     ]
   },
   {
+    "id": "intelligence-hub",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": "Welcome to Apollo Intelligence"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "assistPlaceholder",
+        "label": "Assist Bar Placeholder",
+        "value": "How may we assist you?"
+      }
+    ]
+  },
+  {
+    "id": "intelligence-hub-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Card Title"
+      },
+      {
+        "component": "select",
+        "name": "action",
+        "label": "Action",
+        "valueType": "string",
+        "value": "navigate",
+        "options": [
+          {
+            "name": "Open Tyre Finder",
+            "value": "open-finder"
+          },
+          {
+            "name": "Navigate",
+            "value": "navigate"
+          },
+          {
+            "name": "Open Dealer Locator",
+            "value": "open-dealer"
+          },
+          {
+            "name": "Personal Segment",
+            "value": "segment-personal"
+          },
+          {
+            "name": "Commercial Segment",
+            "value": "segment-commercial"
+          },
+          {
+            "name": "Agriculture Segment",
+            "value": "segment-agriculture"
+          },
+          {
+            "name": "Support",
+            "value": "support"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "description": "Used for Navigate and Support actions."
+      }
+    ]
+  },
+  {
     "id": "product-hero",
     "fields": [
       {
