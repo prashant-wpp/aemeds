@@ -1,0 +1,94 @@
+.command-bar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.command-bar .command-bar-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: min(100%, 36rem);
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgb(20 20 20 / 78%);
+  color: #fff;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 35%);
+}
+
+.command-bar .icon {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.command-bar .icon img {
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
+}
+
+.command-bar .command-bar-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: var(--body-font-size-s);
+}
+
+.command-bar .command-bar-input::placeholder {
+  color: rgb(255 255 255 / 65%);
+}
+
+.command-bar .command-bar-input:focus {
+  outline: none;
+}
+
+.command-bar .command-bar-attach {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.command-bar .command-bar-submit {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--brand-accent, #7b2cbf);
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.command-bar .command-bar-submit:hover,
+.command-bar .command-bar-submit:focus-visible {
+  filter: brightness(1.08);
+}
+
+.command-bar .command-bar-submit:focus-visible,
+.command-bar .command-bar-attach:focus-visible,
+.command-bar .command-bar-input:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Sit naturally inside a chapter section */
+.chapter-container .command-bar-wrapper {
+  margin-top: -4rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}

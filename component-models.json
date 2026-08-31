@@ -191,6 +191,89 @@
     ]
   },
   {
+    "id": "chapter",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Background Image Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "videoUrl",
+        "label": "Background Video URL",
+        "description": "Optional. When set, plays as background media (image used as poster)."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Headline"
+      },
+      {
+        "component": "select",
+        "name": "headingType",
+        "label": "Headline Level",
+        "valueType": "string",
+        "value": "h1",
+        "options": [
+          {
+            "name": "H1",
+            "value": "h1"
+          },
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Supporting Text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "thumbnail",
+        "label": "Scene Thumbnail",
+        "description": "Optional small preview (e.g. alternate scene).",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "thumbnailAlt",
+        "label": "Scene Thumbnail Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "scrollCueLabel",
+        "label": "Scroll Cue Label",
+        "description": "Leave empty to hide the scroll cue. Default suggestion: Scroll to explore",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
@@ -206,6 +289,121 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "command-bar",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "placeholder",
+        "label": "Placeholder",
+        "value": "I'm looking for car tyres"
+      },
+      {
+        "component": "select",
+        "name": "leadingIcon",
+        "label": "Leading Icon",
+        "valueType": "string",
+        "value": "car",
+        "options": [
+          {
+            "name": "Car",
+            "value": "car"
+          },
+          {
+            "name": "Search",
+            "value": "search"
+          },
+          {
+            "name": "Tyre",
+            "value": "tyre"
+          },
+          {
+            "name": "None",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "submitLabel",
+        "label": "Submit Aria Label",
+        "value": "Submit"
+      },
+      {
+        "component": "boolean",
+        "name": "showAttach",
+        "label": "Show Attach Control",
+        "valueType": "boolean"
+      },
+      {
+        "component": "select",
+        "name": "action",
+        "label": "Action",
+        "valueType": "string",
+        "value": "open-intelligence",
+        "options": [
+          {
+            "name": "Open Intelligence",
+            "value": "open-intelligence"
+          },
+          {
+            "name": "Open Tyre Finder",
+            "value": "open-finder"
+          },
+          {
+            "name": "Navigate",
+            "value": "navigate"
+          },
+          {
+            "name": "Query Event",
+            "value": "query"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Navigate Link",
+        "description": "Used when Action is Navigate."
+      },
+      {
+        "component": "select",
+        "name": "segmentHint",
+        "label": "Segment Hint",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Personal",
+            "value": "personal"
+          },
+          {
+            "name": "Commercial",
+            "value": "commercial"
+          },
+          {
+            "name": "Agriculture",
+            "value": "agriculture"
+          },
+          {
+            "name": "Support",
+            "value": "support"
+          },
+          {
+            "name": "Stories",
+            "value": "stories"
+          }
+        ]
       }
     ]
   },
@@ -420,6 +618,39 @@
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "geo-banner",
+    "fields": [
+      {
+        "component": "textarea",
+        "valueType": "string",
+        "name": "message",
+        "label": "Message",
+        "value": "Choose another country or region to see content specific to your location."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "continueLabel",
+        "label": "Continue Label",
+        "value": "Continue"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "marketLabel",
+        "label": "Default Market Label",
+        "value": "India"
+      },
+      {
+        "component": "boolean",
+        "name": "dismissible",
+        "label": "Dismissible",
+        "valueType": "boolean",
+        "value": true
       }
     ]
   },

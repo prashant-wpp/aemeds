@@ -1,0 +1,132 @@
+.chapter-container .chapter-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.chapter {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.chapter .chapter-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.chapter .chapter-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(0 0 0 / 35%) 0%, rgb(0 0 0 / 55%) 100%);
+}
+
+.chapter .chapter-background,
+.chapter .chapter-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chapter .chapter-background img,
+.chapter .chapter-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chapter .chapter-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  padding: 4rem 1.5rem 5rem;
+  text-align: center;
+}
+
+.chapter .chapter-content h1,
+.chapter .chapter-content h2,
+.chapter .chapter-content h3 {
+  margin: 0;
+  color: #fff;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.chapter .chapter-supporting {
+  max-width: 36rem;
+  margin: 0;
+  color: rgb(255 255 255 / 85%);
+  font-size: var(--body-font-size-s);
+}
+
+.chapter .chapter-supporting p {
+  margin: 0;
+}
+
+.chapter .chapter-scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  color: #fff;
+  font-size: var(--body-font-size-xs);
+  cursor: pointer;
+  background: rgb(0 0 0 / 25%);
+}
+
+.chapter .chapter-scroll-cue::after {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: rotate(45deg) translateY(-1px);
+}
+
+.chapter .chapter-thumbnail {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 4.5rem;
+  height: 3rem;
+  overflow: hidden;
+  border-radius: 0.35rem;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 35%);
+}
+
+.chapter .chapter-thumbnail picture,
+.chapter .chapter-thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (width >= 900px) {
+  .chapter .chapter-content {
+    padding: 5rem 2rem 6rem;
+  }
+
+  .chapter .chapter-thumbnail {
+    width: 6rem;
+    height: 4rem;
+  }
+}

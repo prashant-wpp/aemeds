@@ -24,7 +24,10 @@
       "hero-immersive",
       "image-text",
       "tyre-sizes",
-      "tyre-detail"
+      "tyre-detail",
+      "chapter",
+      "command-bar",
+      "geo-banner"
     ]
   },
   {
