@@ -243,6 +243,8 @@ function applyCommandAlign(host, align) {
   if (!host) return;
   const value = ['top', 'middle', 'bottom'].includes(align) ? align : 'bottom';
   host.dataset.align = value;
+  const carousel = host.closest('.vertical-carousel');
+  if (carousel) carousel.dataset.commandAlign = value;
 }
 
 /**
@@ -345,12 +347,18 @@ function hoistCommandBar(wrapper) {
   const chrome = document.createElement('div');
   chrome.className = 'vertical-carousel-command-host';
   chrome.dataset.align = 'bottom';
+  wrapper.dataset.commandAlign = 'bottom';
   wrapper.append(chrome);
 
   const tryMove = () => {
     const bar = wrapper.querySelector('.command-bar');
     if (!bar || chrome.contains(bar)) return Boolean(chrome.querySelector('.command-bar'));
+    const sourceWrapper = bar.closest('.fragment-wrapper');
     chrome.append(bar);
+    if (sourceWrapper) {
+      sourceWrapper.setAttribute('aria-hidden', 'true');
+      sourceWrapper.hidden = true;
+    }
     const fragmentHost = wrapper.querySelector('.vertical-carousel-chrome');
     if (fragmentHost && !fragmentHost.querySelector('.block:not([data-block-name="fragment"])')) {
       fragmentHost.setAttribute('aria-hidden', 'true');

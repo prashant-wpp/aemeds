@@ -1,10 +1,22 @@
+/* Immersive chapter rail — fills the viewport below the header. */
+main:has(> .vertical-carousel) {
+  padding: 0;
+}
+
 .vertical-carousel {
+  --vertical-carousel-height: calc(100dvh - var(--nav-height, 64px));
+
   position: relative;
   scroll-snap-type: y mandatory;
   overflow-y: auto;
-  height: 100dvh;
+  height: var(--vertical-carousel-height);
+  margin: 0;
   color: #fff;
   outline: none;
+}
+
+main > .vertical-carousel {
+  margin: 0;
 }
 
 .vertical-carousel:focus-visible {
@@ -14,7 +26,10 @@
 
 .vertical-carousel > .section.vertical-carousel-chapter {
   position: relative;
-  min-height: 100dvh;
+  box-sizing: border-box;
+  height: var(--vertical-carousel-height);
+  min-height: var(--vertical-carousel-height);
+  max-height: var(--vertical-carousel-height);
   margin: 0;
   padding: 0;
   scroll-snap-align: start;
@@ -23,11 +38,15 @@
   isolation: isolate;
 }
 
-.vertical-carousel > .section.vertical-carousel-chapter > .default-content-wrapper,
-.vertical-carousel > .section.vertical-carousel-chapter > .fragment-wrapper {
+/* Only the authored title/body fills the slide — not the fragment shell. */
+.vertical-carousel > .section.vertical-carousel-chapter > .default-content-wrapper {
+  box-sizing: border-box;
   max-width: none;
-  padding: 0;
-  min-height: 100dvh;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: clamp(1.5rem, 4vh, 3rem) 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +55,36 @@
   position: relative;
   z-index: 1;
   color: #fff;
+}
+
+/* Leave room for the shared Command Bar when it sits at the bottom. */
+.vertical-carousel[data-command-align="bottom"]
+  > .section.vertical-carousel-chapter
+  > .default-content-wrapper {
+  justify-content: flex-start;
+  padding-top: clamp(4rem, 18vh, 9rem);
+  padding-bottom: 7.5rem;
+}
+
+.vertical-carousel[data-command-align="top"]
+  > .section.vertical-carousel-chapter
+  > .default-content-wrapper {
+  justify-content: flex-end;
+  padding-top: 7.5rem;
+  padding-bottom: clamp(4rem, 18vh, 9rem);
+}
+
+/* Fragment stays in the chapter until the bar is hoisted; never stack a second viewport. */
+.vertical-carousel > .section.vertical-carousel-chapter > .fragment-wrapper {
+  position: absolute;
+  inset: auto;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .vertical-carousel > .section.vertical-carousel-chapter h1,
@@ -164,19 +213,20 @@
   text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
 }
 
+/* Anchor to the carousel (not the document), so height/scroll stay in sync. */
 .vertical-carousel-command-host {
-  position: fixed;
+  position: absolute;
   left: 50%;
   z-index: 4;
   width: min(100%, 40rem);
   padding: 0 16px;
   pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .vertical-carousel-command-host[data-align="top"] {
-  top: calc(var(--nav-height, 64px) + 1.5rem);
+  top: 1.5rem;
   bottom: auto;
-  transform: translateX(-50%);
 }
 
 .vertical-carousel-command-host[data-align="middle"] {
@@ -187,8 +237,7 @@
 
 .vertical-carousel-command-host[data-align="bottom"] {
   top: auto;
-  bottom: 96px;
-  transform: translateX(-50%);
+  bottom: 2.5rem;
 }
 
 .vertical-carousel-command-host .command-bar {
@@ -212,11 +261,11 @@
   }
 
   .vertical-carousel-command-host[data-align="bottom"] {
-    bottom: 72px;
+    bottom: 1.5rem;
   }
 
   .vertical-carousel-command-host[data-align="top"] {
-    top: calc(var(--nav-height, 64px) + 1rem);
+    top: 1rem;
   }
 }
 
