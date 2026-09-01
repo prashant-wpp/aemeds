@@ -64,18 +64,16 @@ main > .vertical-carousel {
 }
 
 /* Leave room for the shared Command Bar when it sits at the bottom. */
-.vertical-carousel[data-command-align="bottom"]
-  .vertical-carousel-scroll
-  > .section.vertical-carousel-chapter
+.vertical-carousel-scroll
+  > .section.vertical-carousel-chapter[data-command-align="bottom"]
   > .default-content-wrapper {
   justify-content: flex-start;
   padding-top: clamp(4rem, 18vh, 9rem);
   padding-bottom: 7.5rem;
 }
 
-.vertical-carousel[data-command-align="top"]
-  .vertical-carousel-scroll
-  > .section.vertical-carousel-chapter
+.vertical-carousel-scroll
+  > .section.vertical-carousel-chapter[data-command-align="top"]
   > .default-content-wrapper {
   justify-content: flex-end;
   padding-top: 7.5rem;
@@ -221,13 +219,14 @@ main > .vertical-carousel {
   text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
 }
 
-/* Fixed overlay on the carousel viewport (sibling of the scroll layer). */
+/* Command bar host lives inside the active chapter so it scrolls with the slide. */
 .vertical-carousel-command-host {
   position: absolute;
   left: 50%;
   z-index: 4;
   width: min(100%, 40rem);
   padding: 0 16px;
+  box-sizing: border-box;
   pointer-events: none;
   transform: translateX(-50%);
 }

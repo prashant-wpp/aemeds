@@ -263,8 +263,8 @@ function applyCommandAlign(host, align) {
   if (!host) return;
   const value = ['top', 'middle', 'bottom'].includes(align) ? align : 'bottom';
   host.dataset.align = value;
-  const carousel = host.closest('.vertical-carousel');
-  if (carousel) carousel.dataset.commandAlign = value;
+  const chapter = host.closest('.vertical-carousel-chapter');
+  if (chapter) chapter.dataset.commandAlign = value;
 }
 
 /**
@@ -308,6 +308,17 @@ function syncChapterVideos(chapters, activeIndex) {
 }
 
 /**
+ * Moves the command-host element into the given chapter section so it
+ * stays anchored within that slide during scroll transitions.
+ * @param {HTMLElement} host
+ * @param {Element} chapter
+ */
+function anchorCommandHost(host, chapter) {
+  if (!host || !chapter || chapter.contains(host)) return;
+  chapter.append(host);
+}
+
+/**
  * Observes which chapter is currently in view and syncs bar / rail state.
  * @param {HTMLElement} wrapper
  * @param {HTMLElement} scroll
@@ -330,6 +341,7 @@ function observeActiveChapter(wrapper, scroll, chapters, rail, commandHost) {
       item.setAttribute('aria-current', itemIndex === index ? 'true' : 'false');
     });
     syncChapterVideos(chapters, index);
+    anchorCommandHost(commandHost, chapters[index]);
     syncCommandBar(chapters[index], commandHost);
   };
 
@@ -359,17 +371,24 @@ function observeActiveChapter(wrapper, scroll, chapters, rail, commandHost) {
 }
 
 /**
- * Waits for the shared Command Bar (inside a fragment / first chapter) to
- * appear and moves it into the persistent chrome layer of the carousel.
- * @param {HTMLElement} wrapper
+ * Creates a command-host element and hoists the shared Command Bar block into
+ * it. The host is placed inside the first chapter section so that it scrolls
+ * with the slide rather than floating above the scroll layer.
+ * @param {HTMLElement} wrapper  the `.vertical-carousel` element
+ * @param {Element[]} chapters   chapter section nodes
  * @returns {HTMLElement} the command host element
  */
-function hoistCommandBar(wrapper) {
+function hoistCommandBar(wrapper, chapters) {
   const chrome = document.createElement('div');
   chrome.className = 'vertical-carousel-command-host';
   chrome.dataset.align = 'bottom';
-  wrapper.dataset.commandAlign = 'bottom';
-  wrapper.append(chrome);
+
+  const firstChapter = chapters[0];
+  if (firstChapter) {
+    firstChapter.append(chrome);
+  } else {
+    wrapper.append(chrome);
+  }
 
   const tryMove = () => {
     const bar = wrapper.querySelector('.command-bar');
@@ -416,6 +435,6 @@ export default async function decorate(wrapper) {
   });
 
   const rail = chapters.length > 1 ? buildRail(wrapper, chapters) : null;
-  const commandHost = hoistCommandBar(wrapper);
+  const commandHost = hoistCommandBar(wrapper, chapters);
   observeActiveChapter(wrapper, scroll, chapters, rail, commandHost);
 }
