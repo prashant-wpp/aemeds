@@ -16,15 +16,15 @@
       }
     },
     {
-      "title": "Intelligence Hub Card",
-      "id": "intelligence-hub-card",
+      "title": "Intelligence Hub Item",
+      "id": "intelligence-hub-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Intelligence Hub Card",
-              "model": "intelligence-hub-card"
+              "name": "Intelligence Hub Item",
+              "model": "intelligence-hub-item"
             }
           }
         }
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "id": "intelligence-hub-card",
+      "id": "intelligence-hub-item",
       "fields": [
         {
           "component": "reference",
@@ -104,7 +104,7 @@
     {
       "id": "intelligence-hub",
       "components": [
-        "intelligence-hub-card"
+        "intelligence-hub-item"
       ]
     }
   ]

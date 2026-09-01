@@ -76,7 +76,7 @@
   {
     "id": "intelligence-hub",
     "components": [
-      "intelligence-hub-card"
+      "intelligence-hub-item"
     ]
   },
   {
