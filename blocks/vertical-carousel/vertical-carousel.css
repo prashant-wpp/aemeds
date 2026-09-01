@@ -7,12 +7,18 @@ main:has(> .vertical-carousel) {
   --vertical-carousel-height: calc(100dvh - var(--nav-height, 64px));
 
   position: relative;
-  scroll-snap-type: y mandatory;
-  overflow-y: auto;
   height: var(--vertical-carousel-height);
   margin: 0;
   color: #fff;
   outline: none;
+}
+
+/* Scrollport for chapter slides; chrome (rail + command bar) stays fixed on the wrapper. */
+.vertical-carousel-scroll {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
 }
 
 main > .vertical-carousel {
@@ -24,7 +30,7 @@ main > .vertical-carousel {
   outline-offset: -2px;
 }
 
-.vertical-carousel > .section.vertical-carousel-chapter {
+.vertical-carousel-scroll > .section.vertical-carousel-chapter {
   position: relative;
   box-sizing: border-box;
   height: var(--vertical-carousel-height);
@@ -39,7 +45,7 @@ main > .vertical-carousel {
 }
 
 /* Only the authored title/body fills the slide — not the fragment shell. */
-.vertical-carousel > .section.vertical-carousel-chapter > .default-content-wrapper {
+.vertical-carousel-scroll > .section.vertical-carousel-chapter > .default-content-wrapper {
   box-sizing: border-box;
   max-width: none;
   width: 100%;
@@ -59,6 +65,7 @@ main > .vertical-carousel {
 
 /* Leave room for the shared Command Bar when it sits at the bottom. */
 .vertical-carousel[data-command-align="bottom"]
+  .vertical-carousel-scroll
   > .section.vertical-carousel-chapter
   > .default-content-wrapper {
   justify-content: flex-start;
@@ -67,6 +74,7 @@ main > .vertical-carousel {
 }
 
 .vertical-carousel[data-command-align="top"]
+  .vertical-carousel-scroll
   > .section.vertical-carousel-chapter
   > .default-content-wrapper {
   justify-content: flex-end;
@@ -75,7 +83,7 @@ main > .vertical-carousel {
 }
 
 /* Fragment stays in the chapter until the bar is hoisted; never stack a second viewport. */
-.vertical-carousel > .section.vertical-carousel-chapter > .fragment-wrapper {
+.vertical-carousel-scroll > .section.vertical-carousel-chapter > .fragment-wrapper {
   position: absolute;
   inset: auto;
   width: 0;
@@ -87,9 +95,9 @@ main > .vertical-carousel {
   visibility: hidden;
 }
 
-.vertical-carousel > .section.vertical-carousel-chapter h1,
-.vertical-carousel > .section.vertical-carousel-chapter h2,
-.vertical-carousel > .section.vertical-carousel-chapter h3 {
+.vertical-carousel-scroll > .section.vertical-carousel-chapter h1,
+.vertical-carousel-scroll > .section.vertical-carousel-chapter h2,
+.vertical-carousel-scroll > .section.vertical-carousel-chapter h3 {
   font-style: italic;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -213,7 +221,7 @@ main > .vertical-carousel {
   text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
 }
 
-/* Anchor to the carousel (not the document), so height/scroll stay in sync. */
+/* Fixed overlay on the carousel viewport (sibling of the scroll layer). */
 .vertical-carousel-command-host {
   position: absolute;
   left: 50%;
@@ -244,6 +252,18 @@ main > .vertical-carousel {
   pointer-events: auto;
 }
 
+/* Trailing fragment host lives outside the scrollport. */
+.vertical-carousel > .section.vertical-carousel-chrome {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 .vertical-carousel-chrome[aria-hidden="true"] {
   display: none;
 }
@@ -270,7 +290,7 @@ main > .vertical-carousel {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vertical-carousel {
+  .vertical-carousel-scroll {
     scroll-snap-type: none;
   }
 

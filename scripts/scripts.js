@@ -127,8 +127,12 @@ function wrapChapterSections(main) {
   wrapper.setAttribute('aria-label', 'Homepage chapters');
   wrapper.tabIndex = 0;
 
+  const scroll = document.createElement('div');
+  scroll.className = 'vertical-carousel-scroll';
+
   chapters[0].parentNode.insertBefore(wrapper, chapters[0]);
-  chapters.forEach((section) => wrapper.append(section));
+  wrapper.append(scroll);
+  chapters.forEach((section) => scroll.append(section));
 
   const after = wrapper.nextElementSibling;
   const fragmentBlock = after?.classList?.contains('section')

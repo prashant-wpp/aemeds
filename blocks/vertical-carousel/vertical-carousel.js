@@ -3,10 +3,10 @@ import { chapterMediaStore } from '../../scripts/chapter-media.js';
 /*
  * Vertical Carousel — runtime coordinator (no author insertion).
  *
- * The `.vertical-carousel` wrapper (with chapter sections + optional trailing
- * fragment host) is created in `scripts.js`. This module adds scroll-snap
- * behavior, a rail generated from chapter section metadata, a11y, and
- * prompt/icon sync between the active chapter and the hoisted Command Bar.
+ * The `.vertical-carousel` wrapper (scroll layer + fixed chrome) is created in
+ * `scripts.js`. This module adds scroll-snap behavior, a rail generated from
+ * chapter section metadata, a11y, and prompt/icon sync between the active
+ * chapter and the hoisted Command Bar.
  */
 
 /**
@@ -71,6 +71,26 @@ function createBackgroundPicture(src, alt = '') {
   img.fetchPriority = 'high';
   picture.append(img);
   return picture;
+}
+
+/**
+ * Returns the scrollport element that contains chapter sections.
+ * @param {HTMLElement} wrapper
+ * @returns {HTMLElement|null}
+ */
+function getScrollLayer(wrapper) {
+  return wrapper.querySelector(':scope > .vertical-carousel-scroll');
+}
+
+/**
+ * Returns chapter sections inside the scroll layer.
+ * @param {HTMLElement} wrapper
+ * @returns {Element[]}
+ */
+function getChapters(wrapper) {
+  const scroll = getScrollLayer(wrapper);
+  if (!scroll) return [];
+  return [...scroll.querySelectorAll(':scope > .section[data-chapter="true"]')];
 }
 
 /**
@@ -290,11 +310,12 @@ function syncChapterVideos(chapters, activeIndex) {
 /**
  * Observes which chapter is currently in view and syncs bar / rail state.
  * @param {HTMLElement} wrapper
+ * @param {HTMLElement} scroll
  * @param {Element[]} chapters
  * @param {HTMLElement|null} rail
  * @param {HTMLElement|null} commandHost
  */
-function observeActiveChapter(wrapper, chapters, rail, commandHost) {
+function observeActiveChapter(wrapper, scroll, chapters, rail, commandHost) {
   const railItems = rail ? [...rail.querySelectorAll('.vertical-carousel-rail-item')] : [];
   let activeIndex = 0;
 
@@ -318,7 +339,7 @@ function observeActiveChapter(wrapper, chapters, rail, commandHost) {
       const index = chapters.indexOf(entry.target);
       if (index >= 0) setActive(index);
     });
-  }, { threshold: [0.55, 0.75] });
+  }, { root: scroll, threshold: [0.55, 0.75] });
 
   chapters.forEach((section) => observer.observe(section));
 
@@ -383,7 +404,10 @@ function hoistCommandBar(wrapper) {
 export default async function decorate(wrapper) {
   if (!wrapper || !wrapper.classList.contains('vertical-carousel')) return;
 
-  const chapters = [...wrapper.querySelectorAll(':scope > .section[data-chapter="true"]')];
+  const scroll = getScrollLayer(wrapper);
+  if (!scroll) return;
+
+  const chapters = getChapters(wrapper);
   chapters.forEach((section, index) => {
     section.classList.add('vertical-carousel-chapter');
     section.dataset.slideIndex = String(index);
@@ -393,5 +417,5 @@ export default async function decorate(wrapper) {
 
   const rail = chapters.length > 1 ? buildRail(wrapper, chapters) : null;
   const commandHost = hoistCommandBar(wrapper);
-  observeActiveChapter(wrapper, chapters, rail, commandHost);
+  observeActiveChapter(wrapper, scroll, chapters, rail, commandHost);
 }
