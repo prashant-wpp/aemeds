@@ -80,7 +80,8 @@ main > .vertical-carousel {
   padding-bottom: clamp(4rem, 18vh, 9rem);
 }
 
-/* Fragment stays in the chapter until the bar is hoisted; never stack a second viewport. */
+/* Fragment wrapper: collapsed to zero layout but overflow visible so that
+   position:fixed children (e.g. Intelligence Hub overlay) can still render. */
 .vertical-carousel-scroll > .section.vertical-carousel-chapter > .fragment-wrapper {
   position: absolute;
   inset: auto;
@@ -88,9 +89,20 @@ main > .vertical-carousel {
   height: 0;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
-  visibility: hidden;
+}
+
+/* After the Command Bar is hoisted the fragment shell has no visible layout
+   role, but its children (Intelligence Hub) must remain reachable. */
+.vertical-carousel-fragment-collapsed {
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  pointer-events: none !important;
 }
 
 .vertical-carousel-scroll > .section.vertical-carousel-chapter h1,

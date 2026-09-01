@@ -396,8 +396,7 @@ function hoistCommandBar(wrapper, chapters) {
     const sourceWrapper = bar.closest('.fragment-wrapper');
     chrome.append(bar);
     if (sourceWrapper) {
-      sourceWrapper.setAttribute('aria-hidden', 'true');
-      sourceWrapper.hidden = true;
+      sourceWrapper.classList.add('vertical-carousel-fragment-collapsed');
     }
     const fragmentHost = wrapper.querySelector('.vertical-carousel-chrome');
     if (fragmentHost && !fragmentHost.querySelector('.block:not([data-block-name="fragment"])')) {
